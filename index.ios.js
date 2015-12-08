@@ -4,49 +4,49 @@
  */
 'use strict';
 
-var React = require('react-native');
-var {
+import React from 'react-native';
+import Welcome from './application/components/welcome';
+
+let {
   AppRegistry,
   StyleSheet,
-  Text,
+  NavigatorIOS,
+  NativeModules,
+  Easing,
+  Animated,
+  ActionSheetIOS,
   View,
+  Dimensions,
+  AsyncStorage,
+  StatusBarIOS
 } = React;
 
-var Assembly = React.createClass({
-  render: function() {
+//Create the root app component
+
+class Assembly extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+    }
+  }
+  render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
+        <NavigatorIOS
+          style={styles.container}
+          initialRoute={{
+            component: Welcome,
+            title: 'Welcome'
+          }}
+        />
       </View>
     );
   }
-});
+};
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+    flex: 1
   },
 });
 
