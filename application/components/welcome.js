@@ -24,7 +24,6 @@ class Welcome extends React.Component{
     }
   }
   render(){
-    console.log(this.props);
       return (
         <ScrollView style={styles.container}>
             <TouchableOpacity onPress={() =>{
