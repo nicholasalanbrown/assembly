@@ -1,6 +1,8 @@
 import React from 'react-native';
 import globals from '../styles/globalStyles';
 import Home from './home';
+import Create from './create';
+import myGroups from './myGroups';
 
 let {
   View,
@@ -31,8 +33,8 @@ class Welcome extends React.Component{
             </TouchableOpacity>
             <TouchableOpacity onPress={() =>{
                 this.props.navigator.push({
-                  title: 'Home',
-                  component: Home
+                  title: 'Create',
+                  component: Create
                 })
               }
             }
@@ -41,8 +43,8 @@ class Welcome extends React.Component{
             </TouchableOpacity>
             <TouchableOpacity onPress={() =>{
                 this.props.navigator.push({
-                  title: 'Home',
-                  component: Home
+                  title: 'My Groups',
+                  component: myGroups
                 })
               }
             }
