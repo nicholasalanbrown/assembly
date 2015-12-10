@@ -19,8 +19,7 @@ let globals = StyleSheet.create({
 	},
 	button: {
 		height: 60,
-		width: deviceWidth*0.7,
-		margin: 15,
+		width: deviceWidth,
 		backgroundColor: Colors.brandPrimary,
 		justifyContent: 'center'
 	},

@@ -13,21 +13,20 @@ class Create extends React.Component {
     constructor(props) {
         super(props);
         this._handleChange = this._handleChange.bind(this);
+        this._handleClick = this._handleClick.bind(this);
         this.state = {
             groupName: "Something",
             groupDescription: "Somewhere"
         }
     }
-    componentDidMount() {
+    createEvent () {
         fetch("http://localhost:2403/groups", {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    "name": "native group"
-                })
+                body: JSON.stringify(this.state)
             })
             .then( (response) => response.json() )
             .then( (data) => {
@@ -46,6 +45,7 @@ class Create extends React.Component {
             .then((responseData) => {
                 console.log(responseData);
             })
+            .catch( (error) => console.log(error) )
             .done();
     }
     _nextRoute() {
@@ -59,29 +59,39 @@ class Create extends React.Component {
             [name]: text
         });
     }
+    _handleClick() {
+      this.createEvent();
+    }
     render() {
         return (
-            <View style={Globals.inactiveContainer}>
-          <Input 
-            placeholder="this is a placeholder" 
-            label="What's the event name?"
-            name="groupName"
-            value={this.state.groupName}
-            handleChange={this._handleChange}
-          />
-          <Input 
-            placeholder="this is a placeholder" 
-            label="What's happening at the event?"
-            type="textarea"
-            name="groupDescription"
-            value={this.state.groupDescription}
-            handleChange={this._handleChange}
-          />
+          <View style={Globals.inactiveContainer}>
+            <Input 
+              placeholder="this is a placeholder" 
+              label="What's the event name?"
+              name="groupName"
+              value={this.state.groupName}
+              handleChange={this._handleChange}
+            />
+            <Input 
+              placeholder="this is a placeholder" 
+              label="What's happening at the event?"
+              type="textarea"
+              name="groupDescription"
+              value={this.state.groupDescription}
+              handleChange={this._handleChange}
+            />
+            <TouchableOpacity onPress={this._handleClick} style={[Globals.button, styles.button]}>
+              <Text style={Globals.buttonText}>Create Event</Text>
+            </TouchableOpacity>
         </View>
         )
     }
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  button: {
+    alignSelf: 'flex-end'
+  }
+});
 
 module.exports = Create;
