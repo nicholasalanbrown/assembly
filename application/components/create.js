@@ -1,5 +1,5 @@
 import React from 'react-native';
-import globals from '../styles/globals';
+import Globals from '../styles/globals';
 import Input from './shared/input';
 
 let {
@@ -12,7 +12,10 @@ let {
 class Create extends React.Component{
   constructor(props){
     super(props);
+    this._handleChange = this._handleChange.bind(this);
     this.state = {
+      eventName: "Something",
+      eventDescription: "Somewhere"
     }
   }
 
@@ -22,12 +25,26 @@ class Create extends React.Component{
       component: Home
     })
   }
+  _handleChange(name, text) {
+    this.setState({ [name]: text});
+  }
   render(){
       return (
-        <View style={globals.inactiveContainer}>
+        <View style={Globals.inactiveContainer}>
           <Input 
             placeholder="this is a placeholder" 
-            label="This is a label"
+            label="What's the event name?"
+            name="eventName"
+            value={this.state.eventName}
+            handleChange={this._handleChange}
+          />
+          <Input 
+            placeholder="this is a placeholder" 
+            label="What's happening at the event?"
+            type="textarea"
+            name="eventDescription"
+            value={this.state.eventDescription}
+            handleChange={this._handleChange}
           />
         </View>
       )

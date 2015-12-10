@@ -1,5 +1,6 @@
 import React from 'react-native';
-import globals from '../../styles/globals';
+import Globals from '../../styles/globals';
+import Colors from '../../styles/colors';
 
 let {
   View,
@@ -12,28 +13,49 @@ class Input extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      text: '',
       error: ''
     }
   }
 
-  _nextRoute() {
-  }
   render(){
+      switch (this.props.type) {
+          case "textarea":
+              inputType = (
+                <TextInput
+                  style={Globals.textarea}
+                  onChangeText={(text) => this.setState({text})}
+                  value={this.state.text}
+                  placeholder={this.props.placeholder}
+                  placeholderTextColor={Colors.placeholderColor}
+                  multiline={true}
+                  value={this.props.value}
+                  onChangeText={(text) => this.props.handleChange(this.props.name, text)}
+                />
+              );
+              break;
+          default:
+              inputType = (
+                <TextInput
+                  style={Globals.input}
+                  onChangeText={(text) => this.setState({text})}
+                  value={this.state.text}
+                  placeholder={this.props.placeholder}
+                  placeholderTextColor={Colors.placeholderColor}
+                  value={this.props.value}
+                  onChangeText={(text) => this.props.handleChange(this.props.name, text)}
+                />
+              );
+              break;
+      }
       return (
-      <View>
-        <Text style={globals.inputLabel}>{this.props.label}</Text>
+      <View style={Globals.inputContainer}>
+        <Text style={Globals.inputLabel}>{this.props.label}</Text>
         {this.state.error ?
-          <Text style={globals.inputError}>{this.state.error}</Text>
+          <Text style={Globals.inputError}>{this.state.error}</Text>
           :
           null
         }
-        <TextInput
-          style={globals.input}
-          onChangeText={(text) => this.setState({text})}
-          value={this.state.text}
-          placeholder={this.props.placeholder}
-        />
+        {inputType}
       </View>
       )
     }
@@ -41,7 +63,13 @@ class Input extends React.Component{
 
 
 Input.propTypes = { 
-  placeholder: React.PropTypes.string  
+  placeholder: React.PropTypes.string,
+  label: React.PropTypes.string.isRequired,
+  type: React.PropTypes.string,
+  name: React.PropTypes.string.isRequired,
+  value: React.PropTypes.string,
+  onKeyUp: React.PropTypes.func,
+  onBlur: React.PropTypes.func
 };
 
 const styles = StyleSheet.create({

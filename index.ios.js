@@ -7,7 +7,7 @@
 import React from 'react-native';
 import Welcome from './application/components/welcome';
 import Colors from './application/styles/colors';
-import globals from './application/styles/globals';
+import Globals from './application/styles/globals';
 
 let {
   AppRegistry,

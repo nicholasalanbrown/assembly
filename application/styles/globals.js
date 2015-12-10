@@ -28,18 +28,22 @@ let globals = StyleSheet.create({
 		color: '#ffffff',
 		textAlign: 'center'
 	},
+	inputContainer: {
+		paddingBottom: 30
+	},
 	input: {
 		borderWidth: 0,
 		backgroundColor: '#ffffff',
 		height: 50,
 		paddingLeft: 12,
-		fontSize: 16
+		fontSize: 16,
 	},
 	textarea: {
 		borderWidth: 0,
 		backgroundColor: '#ffffff',
-		height: 50,
+		height: 100,
 		paddingLeft: 12,
+		paddingBottom: 8,
 		fontSize: 16
 	},
 	inputError: {
@@ -48,8 +52,10 @@ let globals = StyleSheet.create({
 		paddingBottom: 6
 	},
 	inputLabel: {
+		color: Colors.bodyText,
+		fontSize: 16,
 		paddingHorizontal: 12,
-		paddingBottom: 6
+		paddingBottom: 8
 	}
 })
 
