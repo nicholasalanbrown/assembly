@@ -1,6 +1,7 @@
 import React from 'react-native';
 import Globals from '../styles/globals';
 import Input from './shared/input';
+import Loading from './shared/loading';
 
 let {
     View,
@@ -15,28 +16,30 @@ class Create extends React.Component {
         this._handleChange = this._handleChange.bind(this);
         this._handleClick = this._handleClick.bind(this);
         this.state = {
-            groupName: "Something",
-            groupDescription: "Somewhere"
+            formData: {
+                groupName: "",
+                groupDescription: ""
+            }
         }
     }
-    createEvent () {
+    createEvent() {
         fetch("http://localhost:2403/groups", {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(this.state)
+                body: JSON.stringify(this.state.formData)
             })
-            .then( (response) => response.json() )
-            .then( (data) => {
-              if (data.errors)
-                console.log(data.errors);
-              else {
-                console.log(data);
-              }
-             })
-            .catch( (error) => console.log(error) )
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.errors)
+                    console.log(data.errors);
+                else {
+                    console.log(data);
+                }
+            })
+            .catch((error) => console.log(error))
             .done();
         fetch("http://localhost:2403/groups/", {
                 method: "GET"
@@ -45,7 +48,7 @@ class Create extends React.Component {
             .then((responseData) => {
                 console.log(responseData);
             })
-            .catch( (error) => console.log(error) )
+            .catch((error) => console.log(error))
             .done();
     }
     _nextRoute() {
@@ -55,21 +58,25 @@ class Create extends React.Component {
         })
     }
     _handleChange(name, text) {
+        let formData = this.state.formData;
+        formData[name] = text;
         this.setState({
-            [name]: text
+          formData: formData
         });
     }
     _handleClick() {
-      this.createEvent();
+        this.createEvent();
     }
     render() {
         return (
+            <View style={{flex : 1}}>
+          <Loading />
           <View style={Globals.inactiveContainer}>
             <Input 
               placeholder="this is a placeholder" 
               label="What's the event name?"
               name="groupName"
-              value={this.state.groupName}
+              value={this.state.formData.groupName}
               handleChange={this._handleChange}
             />
             <Input 
@@ -77,21 +84,22 @@ class Create extends React.Component {
               label="What's happening at the event?"
               type="textarea"
               name="groupDescription"
-              value={this.state.groupDescription}
+              value={this.state.formData.groupDescription}
               handleChange={this._handleChange}
             />
             <TouchableOpacity onPress={this._handleClick} style={[Globals.button, styles.button]}>
               <Text style={Globals.buttonText}>Create Event</Text>
             </TouchableOpacity>
         </View>
+        </View>
         )
     }
 };
 
 const styles = StyleSheet.create({
-  button: {
-    alignSelf: 'flex-end'
-  }
+    button: {
+        alignSelf: 'flex-end'
+    }
 });
 
 module.exports = Create;

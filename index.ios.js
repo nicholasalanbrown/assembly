@@ -8,6 +8,7 @@ import React from 'react-native';
 import Welcome from './application/components/welcome';
 import Colors from './application/styles/colors';
 import Globals from './application/styles/globals';
+import Loading from './application/components/shared/loading';
 
 let {
   AppRegistry,
@@ -29,6 +30,7 @@ class Assembly extends React.Component{
   constructor(props){
     super(props);
     this.state = {
+      loading: false
     }
   }
   render() {
@@ -45,6 +47,9 @@ class Assembly extends React.Component{
             title: 'Welcome'
           }}
         />
+        {
+          this.state.loading ? <Loading /> : null
+        }
       </View>
     );
   }
