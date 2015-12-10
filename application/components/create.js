@@ -1,5 +1,6 @@
 import React from 'react-native';
-import globals from '../styles/globalStyles';
+import globals from '../styles/globals';
+import Input from './shared/input';
 
 let {
   View,
@@ -23,20 +24,17 @@ class Create extends React.Component{
   }
   render(){
       return (
-        <View style={styles.container}>
-            <TouchableOpacity onPress={this._nextRoute} style={globals.button}>
-              <Text style={globals.buttonText}>Event</Text>
-            </TouchableOpacity>
+        <View style={globals.inactiveContainer}>
+          <Input 
+            placeholder="this is a placeholder" 
+            label="This is a label"
+          />
         </View>
       )
     }
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center'
-  },
 });
 
 module.exports = Create;

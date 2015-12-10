@@ -1,5 +1,6 @@
 const Colors = {
-  brandPrimary: '#283593'
+  brandPrimary: '#3A7BD2',
+  inactive: '#EBEEF5'
 }
 
 module.exports = Colors;

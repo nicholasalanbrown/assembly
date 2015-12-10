@@ -1,5 +1,5 @@
 import React from 'react-native';
-import globals from '../styles/globalStyles';
+import globals from '../styles/globals';
 
 let {
   View,

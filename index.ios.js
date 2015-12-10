@@ -6,6 +6,8 @@
 
 import React from 'react-native';
 import Welcome from './application/components/welcome';
+import Colors from './application/styles/colors';
+import globals from './application/styles/globals';
 
 let {
   AppRegistry,
@@ -30,10 +32,14 @@ class Assembly extends React.Component{
     }
   }
   render() {
+    StatusBarIOS.setStyle('light-content');
     return (
       <View style={styles.container}>
         <NavigatorIOS
           style={styles.container}
+          barTintColor={Colors.brandPrimary}
+          titleTextColor='#ffffff'
+          tintColor='#ffffff'
           initialRoute={{
             component: Welcome,
             title: 'Welcome'
