@@ -42,8 +42,9 @@ let globals = StyleSheet.create({
 		borderWidth: 0,
 		backgroundColor: '#ffffff',
 		height: 100,
+		paddingTop: 10,
 		paddingLeft: 12,
-		paddingBottom: 8,
+		paddingBottom: 10,
 		fontSize: 16
 	},
 	inputError: {
