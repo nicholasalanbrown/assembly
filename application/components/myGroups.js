@@ -1,5 +1,6 @@
 import React from 'react-native';
-import globals from '../styles/globals';
+import Globals from '../styles/globals';
+import GroupCard from './groups/groupCard';
 
 let {
   View,
@@ -8,25 +9,46 @@ let {
   StyleSheet,
 } = React;
 
-class myGroups extends React.Component{
+class MyGroups extends React.Component{
   constructor(props){
     super(props);
     this.state = {
+      data: []
     }
   }
-
-  _nextRoute() {
-    this.props.navigator.push({
-      title: 'Home',
-      component: Home
-    })
+  componentDidMount () {
+    this.props.loading(true);
+    fetch("http://localhost:2403/groups?createdBy="+this.props.user.userId, {
+            method: "GET",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.errors) {
+                this.props.loading(false);
+                console.log(data.errors);
+            }
+            else {
+                this.props.loading(false);
+                this.setState({data: data})
+                console.log(this.state.data);
+            }
+        })
+        .catch((error) => console.log(error))
+        .done();
   }
   render(){
+      let myGroups = this.state.data.map(function(group) {
+        return (
+          <GroupCard groupName={group.groupName} key={group.id} />
+        );
+      });
       return (
-        <View style={styles.container}>
-            <TouchableOpacity onPress={this._nextRoute} style={globals.button}>
-              <Text style={globals.buttonText}>Event</Text>
-            </TouchableOpacity>
+        <View style={Globals.activeContainer}>
+          {myGroups}
         </View>
       )
     }
@@ -35,8 +57,10 @@ class myGroups extends React.Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center'
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingTop: 100
   },
 });
 
-module.exports = myGroups;
+module.exports = MyGroups;

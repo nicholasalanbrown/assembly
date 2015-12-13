@@ -81,19 +81,19 @@ class Home extends React.Component{
             style={globals.button}>
               <Text style={globals.buttonText}>New Group</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={this._handleClick}
-            style={globals.button}>
-              <Text style={globals.buttonText}>My Groups</Text>
-            </TouchableOpacity>
             <TouchableOpacity onPress={() =>{
                 this.props.navigator.push({
-                  title: 'User Profile',
-                  component: userProfile
+                  title: 'My Groups',
+                  component: myGroups,
+                  passProps: {
+                    loading: this.props.loading,
+                    user: this.props.user
+                  }
                 })
               }
             }
             style={globals.button}>
-              <Text style={globals.buttonText}>User Profile</Text>
+              <Text style={globals.buttonText}>My Groups</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() =>{
                 this.props.navigator.push({

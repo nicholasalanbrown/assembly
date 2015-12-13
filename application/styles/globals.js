@@ -12,6 +12,12 @@ let {
 } = Dimensions.get('window');
 
 let globals = StyleSheet.create({
+	activeContainer: {
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		paddingTop: 100
+	},
 	inactiveContainer: {
 		flex: 1,
 		backgroundColor: Colors.inactive,
