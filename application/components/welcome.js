@@ -15,7 +15,7 @@ let FBLoginManager = require('NativeModules').FBLoginManager;
 let {
   View,
   ScrollView,
-  Text, 
+  Text,
   TouchableOpacity,
   StyleSheet,
 } = React;
@@ -31,9 +31,14 @@ class Welcome extends React.Component{
   _handleClick () {
     this.props.loading();
   }
-  _findUser () {
-    this.props.loading(true);
-    fetch("http://localhost:2403/users?userId="+ this.state.user.userId, {
+  _findUser (userId) {
+    this.props.loading(true)
+    if (!userId) {
+      console.log('no userId');
+      let userId = this.state.user.userId;
+    }
+    console.log('finding user');
+    fetch("http://localhost:2403/users?userId="+ userId, {
             method: "GET"
         })
         .then((response) => response.json())
@@ -45,6 +50,11 @@ class Welcome extends React.Component{
             else if (data.length > 0) {
                 this.props.loading(false);
                 console.log("User exists");
+                let user = data[0];
+                console.log(user);
+                delete user["id"];
+                this.setState({user: user});
+                this.props.setUser(user);
             }
             else {
                 console.log("User doesnt exist");
@@ -101,6 +111,7 @@ class Welcome extends React.Component{
                 user.name = data.name;
                 user.picture = "https://graph.facebook.com/"+user.userId+"/picture?type=large";
                 this.setState({user: user})
+                this.props.setUser(user);
                 this._updateUser(id);
             }
         })
@@ -133,7 +144,6 @@ class Welcome extends React.Component{
   }
   render(){
     let _this = this;
-    let user = this.state.user;
       return (
         <ScrollView style={styles.container}>
           <FBLogin style={{ marginBottom: 10, }}
@@ -141,24 +151,23 @@ class Welcome extends React.Component{
             loginBehavior={FBLoginManager.LoginBehaviors.Native}
             onLogin={function(data){
               console.log("Logged in!");
-              console.log(data);
-              let user  = {
+              let user = {
                 username: "facebook_"+data.credentials.userId,
                 userId: data.credentials.userId,
                 token: data.credentials.token,
                 tokenExpirationDate: data.credentials.tokenExpirationDate
               }
               _this.setState({ user : user });
-              _this._findUser();
+              _this._findUser(user.userId);
             }}
             onLogout={function(){
               console.log("Logged out.");
               _this.setState({ user : null });
+              _this.props.setUser(null);
             }}
             onLoginFound={function(data){
               console.log("Existing login found.");
-              console.log(data);
-              _this.setState({ user : data.credentials });
+              _this._findUser(data.credentials.userId);
             }}
             onLoginNotFound={function(){
               console.log("No user logged in.");
@@ -176,71 +185,6 @@ class Welcome extends React.Component{
               console.log(data);
             }}
           />
-            <TouchableOpacity onPress={() =>{
-                this.props.navigator.push({
-                  title: 'Home',
-                  component: Home
-                })
-              }
-            }
-            style={globals.button}>
-              <Text style={globals.buttonText}>Home</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() =>{
-                this.props.navigator.push({
-                  title: 'Create',
-                  component: Create,
-                  passProps: {loading: this.props.loading}
-                })
-              }
-            }
-            style={globals.button}>
-              <Text style={globals.buttonText}>Create</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this._handleClick}
-            style={globals.button}>
-              <Text style={globals.buttonText}>My Groups</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() =>{
-                this.props.navigator.push({
-                  title: 'User Profile',
-                  component: userProfile
-                })
-              }
-            }
-            style={globals.button}>
-              <Text style={globals.buttonText}>User Profile</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() =>{
-                this.props.navigator.push({
-                  title: 'Chat',
-                  component: chat
-                })
-              }
-            }
-            style={globals.button}>
-              <Text style={globals.buttonText}>Chat</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() =>{
-                this.props.navigator.push({
-                  title: 'View Group',
-                  component: viewGroup
-                })
-              }
-            }
-            style={globals.button}>
-              <Text style={globals.buttonText}>View Group</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() =>{
-                this.props.navigator.push({
-                  title: 'View Event',
-                  component: viewEvent
-                })
-              }
-            }
-            style={globals.button}>
-              <Text style={globals.buttonText}>View Event</Text>
-            </TouchableOpacity>
         </ScrollView>
       )
     }
