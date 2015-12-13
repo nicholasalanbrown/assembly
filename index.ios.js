@@ -43,6 +43,7 @@ class Assembly extends React.Component{
   }
   _setUser (data) {
     console.log(data);
+    console.log('setting new user state');
     this.setState({user: data});
   }
   componentWillMount () {
@@ -57,22 +58,7 @@ class Assembly extends React.Component{
     console.log(this.state.user);
     return (
       <View style={styles.container}>
-        {this.state.user === null ?
-        <NavigatorIOS
-          style={styles.container}
-          barTintColor={Colors.brandPrimary}
-          titleTextColor='#ffffff'
-          tintColor='#ffffff'
-          initialRoute={{
-            component: Welcome,
-            title: 'Welcome',
-            passProps: {
-              loading: this._toggleLoading.bind(this),
-              setUser: this._setUser.bind(this)
-            },
-          }}
-        /> :
-        <NavigatorIOS
+      <NavigatorIOS
           style={styles.container}
           barTintColor={Colors.brandPrimary}
           titleTextColor='#ffffff'
@@ -86,10 +72,17 @@ class Assembly extends React.Component{
             },
           }}
         />
-        }
         {
           this.state.loading ? <Loading /> : null
         }
+      {!this.state.user ?
+
+      <Welcome loading={this._toggleLoading.bind(this)}
+                setUser= {this._setUser.bind(this)}
+      />
+        :
+      null
+      }
       </View>
     );
   }

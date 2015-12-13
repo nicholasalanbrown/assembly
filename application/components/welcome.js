@@ -185,6 +185,7 @@ class Welcome extends React.Component{
               console.log(data);
             }}
           />
+          {this.state.user ? <Text>Logged in</Text> : <Text>Not Logged in</Text>}
         </ScrollView>
       )
     }
@@ -193,6 +194,11 @@ class Welcome extends React.Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
   },
 });
 
