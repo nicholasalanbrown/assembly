@@ -9,13 +9,21 @@
 			"id": "groupId",
 			"order": 0
 		},
+		"createdBy": {
+			"name": "createdBy",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "createdBy",
+			"order": 1
+		},
 		"eventName": {
 			"name": "eventName",
 			"type": "string",
 			"typeLabel": "string",
 			"required": false,
 			"id": "eventName",
-			"order": 1
+			"order": 2
 		},
 		"eventDescription": {
 			"name": "eventDescription",
@@ -23,7 +31,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "eventDescription",
-			"order": 2
+			"order": 3
 		},
 		"eventDate": {
 			"name": "eventDate",
@@ -31,7 +39,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "eventDate",
-			"order": 3
+			"order": 4
 		}
 	}
 }

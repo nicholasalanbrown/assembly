@@ -56,7 +56,10 @@ class Home extends React.Component{
                 this.props.navigator.push({
                   title: 'Create',
                   component: Create,
-                  passProps: {loading: this.props.loading}
+                  passProps: {
+                    loading: this.props.loading,
+                    user: this.props.user
+                  }
                 })
               }
             }

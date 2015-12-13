@@ -31,7 +31,7 @@ class Create extends React.Component {
     _createEvent() {
         this.props.loading(true);
         let requestData = this.state.formData;
-        Object.assign(requestData, {groupId: this.state.groupId});
+        Object.assign(requestData, {groupId: this.state.groupId, createdBy: this.props.user.userId});
         fetch("http://localhost:2403/events", {
                 method: "POST",
                 headers: {
@@ -67,7 +67,6 @@ class Create extends React.Component {
     }
     _onDateChange(date) {
         this._handleChange("eventDate", date);
-        console.log(this.state.formData);
     }
     render() {
         return (

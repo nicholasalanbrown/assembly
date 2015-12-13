@@ -196,7 +196,8 @@ class Assembly extends React.Component{
             title: 'Home',
             passProps: {
               loading: this._toggleLoading.bind(this),
-              setUser: this._setUser.bind(this)
+              setUser: this._setUser.bind(this),
+              user: this.state.user
             },
           }}
         />
