@@ -99,6 +99,7 @@ class Welcome extends React.Component{
                 console.log(data);
                 user.email = data.email;
                 user.name = data.name;
+                user.picture = "https://graph.facebook.com/"+user.userId+"/picture?type=large";
                 this.setState({user: user})
                 this._updateUser(id);
             }

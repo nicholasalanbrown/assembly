@@ -41,13 +41,21 @@
 			"id": "token",
 			"order": 4
 		},
+		"picture": {
+			"name": "picture",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "picture",
+			"order": 5
+		},
 		"tokenExpirationDate": {
 			"name": "tokenExpirationDate",
 			"type": "string",
 			"typeLabel": "string",
 			"required": false,
 			"id": "tokenExpirationDate",
-			"order": 5
+			"order": 6
 		}
 	}
 }
