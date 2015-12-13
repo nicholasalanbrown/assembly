@@ -1,6 +1,7 @@
 import React from 'react-native';
 import globals from '../styles/globals';
-import Create from './create';
+import createEvent from './createEvent';
+import createGroup from './createGroup';
 import myGroups from './myGroups';
 import userProfile from './userProfile';
 import chat from './chat';
@@ -54,8 +55,8 @@ class Home extends React.Component{
             </TouchableOpacity>
             <TouchableOpacity onPress={() =>{
                 this.props.navigator.push({
-                  title: 'Create',
-                  component: Create,
+                  title: 'New Event',
+                  component: createEvent,
                   passProps: {
                     loading: this.props.loading,
                     user: this.props.user
@@ -64,7 +65,21 @@ class Home extends React.Component{
               }
             }
             style={globals.button}>
-              <Text style={globals.buttonText}>Create</Text>
+              <Text style={globals.buttonText}>New Event</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() =>{
+                this.props.navigator.push({
+                  title: 'New Group',
+                  component: createGroup,
+                  passProps: {
+                    loading: this.props.loading,
+                    user: this.props.user
+                  }
+                })
+              }
+            }
+            style={globals.button}>
+              <Text style={globals.buttonText}>New Group</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={this._handleClick}
             style={globals.button}>

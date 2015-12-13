@@ -9,13 +9,21 @@
 			"id": "groupName",
 			"order": 0
 		},
+		"createdBy": {
+			"name": "createdBy",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "createdBy",
+			"order": 1
+		},
 		"groupDescription": {
 			"name": "groupDescription",
 			"type": "string",
 			"typeLabel": "string",
 			"required": false,
 			"id": "groupDescription",
-			"order": 1
+			"order": 2
 		}
 	}
 }
