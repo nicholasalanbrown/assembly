@@ -39,6 +39,115 @@ class Assembly extends React.Component{
   _toggleLoading (bool) {
     this.setState({loading: bool});
   }
+  _findUser (userId) {
+    this._toggleLoading(true);
+    if (!userId) {
+      console.log('no userId');
+      let userId = this.state.user.userId;
+    }
+    console.log('finding user');
+    fetch("http://localhost:2403/users?userId="+ userId, {
+            method: "GET"
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.errors) {
+                this._toggleLoading(false);
+                console.log(data.errors);
+            }
+            else if (data.length > 0) {
+                this._toggleLoading(false);
+                console.log("User exists");
+                let user = this.state.user;
+                let userData = data[0];
+                delete userData["id"];
+                user.profile = userData.profile;
+                this._setUser(user);
+                console.log(this.state.user);
+            }
+            else {
+                console.log("User doesnt exist");
+                this._createUser();
+            }
+        })
+        .catch((error) => console.log(error))
+        .done();
+  }
+  _createUser () {
+    this._toggleLoading(true);
+    let user = this.state.user;
+    user.username = "facebook_"+user.userId;
+    user.password = "password"
+;    fetch("http://localhost:2403/users", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user)
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.errors) {
+                this._toggleLoading(false);
+                console.log(data.errors);
+            }
+            else {
+                this._toggleLoading(false);
+                this._getUserProfile(data.id);
+            }
+        })
+        .catch((error) => console.log(error))
+        .done();
+  }
+  _getUserProfile(id) {
+    this._toggleLoading(true);
+    let user = this.state.user;
+    let api = "https://graph.facebook.com/me?fields=id,name,email&access_token="+user.token;
+    fetch(api, {
+            method: "GET"
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.errors) {
+                this._toggleLoading(false);
+                console.log(data.errors);
+            }
+            else {
+                console.log(data);
+                data.picture = "https://graph.facebook.com/"+user.userId+"/picture?type=large";
+                user.profile = data;
+                this.setState({user: user})
+                this._setUser(user);
+                this._updateUser(id);
+            }
+        })
+        .catch((error) => console.log(error))
+        .done();
+  }
+  _updateUser(id) {
+    this._toggleLoading(true);
+    fetch("http://localhost:2403/users/"+id, {
+            method: "PUT",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(this.state.user)
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.errors) {
+                this._toggleLoading(false);
+                console.log(data.errors);
+            }
+            else {
+                this._toggleLoading(false);
+            }
+        })
+        .catch((error) => console.log(error))
+        .done();
+  }
   _setUser (data) {
     this.setState({user: data});
   }
@@ -56,6 +165,7 @@ class Assembly extends React.Component{
         user.token = eventData.credentials.token;
         user.tokenExpirationDate = eventData.credentials.tokenExpirationDate;
         this.setState({user: user});
+        this._findUser(user.userId);
     });
     DeviceEventEmitter.addListener(
       FBLoginManager.Events["LoginFound"],
@@ -65,14 +175,17 @@ class Assembly extends React.Component{
         user.token = eventData.credentials.token;
         user.tokenExpirationDate = eventData.credentials.tokenExpirationDate;
         this.setState({user: user});
+        this._findUser(user.userId);
     });
     DeviceEventEmitter.addListener(
       FBLoginManager.Events["LoginNotFound"],
         (eventData) => {
+          console.log("loginnotfound");
         this.setState({user: {}})
     });
   }
   render() {
+    console.log(this.state.user);
     StatusBarIOS.setStyle('light-content');
     return (
       <View style={styles.container}>

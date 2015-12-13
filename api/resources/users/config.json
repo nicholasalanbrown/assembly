@@ -17,37 +17,13 @@
 			"id": "profile",
 			"order": 1
 		},
-		"email": {
-			"name": "email",
-			"type": "string",
-			"typeLabel": "string",
-			"required": false,
-			"id": "email",
-			"order": 2
-		},
-		"name": {
-			"name": "name",
-			"type": "string",
-			"typeLabel": "string",
-			"required": false,
-			"id": "name",
-			"order": 3
-		},
 		"token": {
 			"name": "token",
 			"type": "string",
 			"typeLabel": "string",
 			"required": false,
 			"id": "token",
-			"order": 4
-		},
-		"picture": {
-			"name": "picture",
-			"type": "string",
-			"typeLabel": "string",
-			"required": false,
-			"id": "picture",
-			"order": 5
+			"order": 2
 		},
 		"tokenExpirationDate": {
 			"name": "tokenExpirationDate",
@@ -55,7 +31,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "tokenExpirationDate",
-			"order": 6
+			"order": 3
 		}
 	}
 }
