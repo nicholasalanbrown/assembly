@@ -23,18 +23,23 @@ class GroupCard extends React.Component{
   }
   render(){
       return (
-        <TouchableOpacity style={styles.card}>
-          <Text style={styles.text}>{this.props.groupName}</Text>
-        </TouchableOpacity>
+        <View style={styles.cardContainer}>
+          <TouchableOpacity style={styles.card}>
+            <Text style={styles.text}>{this.props.groupName}</Text>
+          </TouchableOpacity>
+        </View>
       )
     }
 };
 
 const styles = StyleSheet.create({
-  card: {
+  cardContainer: {
     height: 150,
-    width: deviceWidth/2-20,
-    marginVertical: 6,
+    width: deviceWidth/2,
+    padding: 6
+  },
+  card: {
+    flex: 1,
     padding: 20,
     backgroundColor: Colors.brandPrimary,
     justifyContent: 'flex-end'

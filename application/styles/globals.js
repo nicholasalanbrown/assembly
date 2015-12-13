@@ -12,12 +12,10 @@ let {
 } = Dimensions.get('window');
 
 let globals = StyleSheet.create({
-	activeContainer: {
+	twoColumnGridContainer: {
 		flex: 1,
 		flexDirection: 'row',
-		justifyContent: 'space-between',
 		flexWrap: 'wrap',
-		paddingHorizontal: 15,
 		paddingTop: 100
 	},
 	inactiveContainer: {

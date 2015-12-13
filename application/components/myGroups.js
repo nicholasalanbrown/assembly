@@ -47,7 +47,7 @@ class MyGroups extends React.Component{
         );
       });
       return (
-        <View style={Globals.activeContainer}>
+        <View style={Globals.twoColumnGridContainer}>
           {myGroups}
         </View>
       )
@@ -55,12 +55,6 @@ class MyGroups extends React.Component{
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    paddingTop: 100
-  },
 });
 
 module.exports = MyGroups;
