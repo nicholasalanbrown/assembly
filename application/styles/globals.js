@@ -15,7 +15,9 @@ let globals = StyleSheet.create({
 	activeContainer: {
 		flex: 1,
 		flexDirection: 'row',
-		justifyContent: 'center',
+		justifyContent: 'space-between',
+		flexWrap: 'wrap',
+		paddingHorizontal: 15,
 		paddingTop: 100
 	},
 	inactiveContainer: {

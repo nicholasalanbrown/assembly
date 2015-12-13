@@ -6,8 +6,14 @@ let {
   View,
   Text,
   TouchableOpacity,
+  Dimensions,
   StyleSheet,
 } = React;
+
+let {
+  width: deviceWidth,
+  height: deviceHeight
+} = Dimensions.get('window');
 
 class GroupCard extends React.Component{
   constructor(props){
@@ -26,12 +32,12 @@ class GroupCard extends React.Component{
 
 const styles = StyleSheet.create({
   card: {
-    flex: 0.47,
     height: 150,
-    margin: 8,
+    width: deviceWidth/2-20,
+    marginVertical: 6,
     padding: 20,
-    justifyContent: 'flex-end',
-    backgroundColor: Colors.brandPrimary
+    backgroundColor: Colors.brandPrimary,
+    justifyContent: 'flex-end'
   },
   text: {
     color: '#ffffff',
