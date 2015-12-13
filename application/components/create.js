@@ -16,13 +16,34 @@ class Create extends React.Component {
         this._handleChange = this._handleChange.bind(this);
         this._handleClick = this._handleClick.bind(this);
         this.state = {
+            data: null,
             formData: {
                 groupName: "",
                 groupDescription: ""
             }
         }
     }
-    createEvent() {
+    componentDidMount () {
+        this.props.loading(true);
+        fetch("http://localhost:2403/groups/", {
+                method: "GET"
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.errors) {
+                    this.props.loading(false);
+                    console.log(data.errors);
+                }
+                else {
+                    this.props.loading(false);
+                    console.log(data);
+                }
+            })
+            .catch((error) => console.log(error))
+            .done();
+    }
+    _createEvent() {
+        this.props.loading(true);
         fetch("http://localhost:2403/groups", {
                 method: "POST",
                 headers: {
@@ -33,20 +54,14 @@ class Create extends React.Component {
             })
             .then((response) => response.json())
             .then((data) => {
-                if (data.errors)
+                if (data.errors) {
+                    this.props.loading(false);
                     console.log(data.errors);
+                }
                 else {
+                    this.props.loading(false);
                     console.log(data);
                 }
-            })
-            .catch((error) => console.log(error))
-            .done();
-        fetch("http://localhost:2403/groups/", {
-                method: "GET"
-            })
-            .then((response) => response.json())
-            .then((responseData) => {
-                console.log(responseData);
             })
             .catch((error) => console.log(error))
             .done();
@@ -65,15 +80,16 @@ class Create extends React.Component {
         });
     }
     _handleClick() {
-        this.createEvent();
+        this.props.loading(true);
+        this._createEvent();
     }
     render() {
         return (
             <View style={{flex : 1}}>
           <Loading />
           <View style={Globals.inactiveContainer}>
-            <Input 
-              placeholder="this is a placeholder" 
+            <Input
+              placeholder="this is a placeholder"
               label="What's the event name?"
               name="groupName"
               value={this.state.formData.groupName}

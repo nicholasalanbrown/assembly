@@ -1,0 +1,53 @@
+{
+	"type": "UserCollection",
+	"properties": {
+		"userId": {
+			"name": "userId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "userId",
+			"order": 0
+		},
+		"profile": {
+			"name": "profile",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "profile",
+			"order": 1
+		},
+		"email": {
+			"name": "email",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "email",
+			"order": 2
+		},
+		"name": {
+			"name": "name",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "name",
+			"order": 3
+		},
+		"token": {
+			"name": "token",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "token",
+			"order": 4
+		},
+		"tokenExpirationDate": {
+			"name": "tokenExpirationDate",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "tokenExpirationDate",
+			"order": 5
+		}
+	}
+}

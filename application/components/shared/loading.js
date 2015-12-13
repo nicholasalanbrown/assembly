@@ -1,6 +1,7 @@
 import React from 'react-native';
 import Globals from '../../styles/globals';
 import Colors from '../../styles/colors';
+import Spinner from 'react-native-spinkit';
 
 let {
   View,
@@ -19,6 +20,7 @@ class Loading extends React.Component{
   render(){
       return (
       <View style={styles.container}>
+          <Spinner style={styles.spinner} isVisible={true} size={50} type='FadingCircle' color='#ffffff'/>
       </View>
       )
     }
@@ -34,8 +36,13 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     left: 0,
-    backgroundColor: '#000000',
-    opacity: 0.2
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    alignItems: 'center',
+    paddingTop: 150
+  },
+  spinner: {
+    opacity: 1,
+    color: '#ffffff'
   }
 });
 

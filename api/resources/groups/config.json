@@ -1,0 +1,21 @@
+{
+	"type": "Collection",
+	"properties": {
+		"groupName": {
+			"name": "groupName",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "groupName",
+			"order": 0
+		},
+		"groupDescription": {
+			"name": "groupDescription",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "groupDescription",
+			"order": 1
+		}
+	}
+}

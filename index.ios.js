@@ -33,6 +33,9 @@ class Assembly extends React.Component{
       loading: false
     }
   }
+  _toggleLoading (bool) {
+    this.setState({loading: bool});
+  }
   render() {
     StatusBarIOS.setStyle('light-content');
     return (
@@ -44,7 +47,8 @@ class Assembly extends React.Component{
           tintColor='#ffffff'
           initialRoute={{
             component: Welcome,
-            title: 'Welcome'
+            title: 'Welcome',
+            passProps: { loading: this._toggleLoading.bind(this)},
           }}
         />
         {

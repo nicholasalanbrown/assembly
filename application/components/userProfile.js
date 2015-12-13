@@ -6,6 +6,7 @@ let {
   Text,
   TouchableOpacity,
   StyleSheet,
+  WebView
 } = React;
 
 class userProfile extends React.Component{
@@ -23,11 +24,7 @@ class userProfile extends React.Component{
   }
   render(){
       return (
-        <View style={styles.container}>
-            <TouchableOpacity onPress={this._nextRoute} style={globals.button}>
-              <Text style={globals.buttonText}>Event</Text>
-            </TouchableOpacity>
-        </View>
+        <WebView url="http://localhost:2403/auth/facebook/" />
       )
     }
 };

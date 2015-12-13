@@ -8,11 +8,14 @@ import chat from './chat';
 import myProfile from './myProfile';
 import viewGroup from './viewGroup';
 import viewEvent from './viewEvent';
+import FBLogin from 'react-native-facebook-login';
+let NativeModules = require('react-native').NativeModules;
+let FBLoginManager = require('NativeModules').FBLoginManager;
 
 let {
   View,
   ScrollView,
-  Text,
+  Text, 
   TouchableOpacity,
   StyleSheet,
 } = React;
@@ -20,12 +23,158 @@ let {
 class Welcome extends React.Component{
   constructor(props){
     super(props);
+    this._handleClick = this._handleClick.bind(this);
     this.state = {
+      user: null
     }
   }
+  _handleClick () {
+    this.props.loading();
+  }
+  _findUser () {
+    this.props.loading(true);
+    fetch("http://localhost:2403/users?userId="+ this.state.user.userId, {
+            method: "GET"
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.errors) {
+                this.props.loading(false);
+                console.log(data.errors);
+            }
+            else if (data.length > 0) {
+                this.props.loading(false);
+                console.log("User exists");
+            }
+            else {
+                console.log("User doesnt exist");
+                this._createUser();
+            }
+        })
+        .catch((error) => console.log(error))
+        .done();
+  }
+  _createUser () {
+    this.props.loading(true);
+    let user = this.state.user;
+    user.password = "password"
+;    fetch("http://localhost:2403/users", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user)
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.errors) {
+                this.props.loading(false);
+                console.log(data.errors);
+            }
+            else {
+                this.props.loading(false);
+                this._getUserProfile(data.id);
+            }
+        })
+        .catch((error) => console.log(error))
+        .done();
+  }
+  _getUserProfile(id) {
+    console.log(id);
+    this.props.loading(true);
+    let user = this.state.user;
+    let api = "https://graph.facebook.com/me?fields=id,name,email&access_token="+user.token;
+    this.props.loading(true);
+    fetch(api, {
+            method: "GET"
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.errors) {
+                this.props.loading(false);
+                console.log(data.errors);
+            }
+            else {
+                console.log(data);
+                user.email = data.email;
+                user.name = data.name;
+                this.setState({user: user})
+                this._updateUser(id);
+            }
+        })
+        .catch((error) => console.log(error))
+        .done();
+  }
+  _updateUser(id) {
+    this.props.loading(true);
+    fetch("http://localhost:2403/users/"+id, {
+            method: "PUT",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(this.state.user)
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.errors) {
+                this.props.loading(false);
+                console.log(data.errors);
+            }
+            else {
+                this.props.loading(false);
+                console.log(data);
+            }
+        })
+        .catch((error) => console.log(error))
+        .done();
+  }
   render(){
+    let _this = this;
+    let user = this.state.user;
       return (
         <ScrollView style={styles.container}>
+          <FBLogin style={{ marginBottom: 10, }}
+            permissions={["email","user_friends"]}
+            loginBehavior={FBLoginManager.LoginBehaviors.Native}
+            onLogin={function(data){
+              console.log("Logged in!");
+              console.log(data);
+              let user  = {
+                username: "facebook_"+data.credentials.userId,
+                userId: data.credentials.userId,
+                token: data.credentials.token,
+                tokenExpirationDate: data.credentials.tokenExpirationDate
+              }
+              _this.setState({ user : user });
+              _this._findUser();
+            }}
+            onLogout={function(){
+              console.log("Logged out.");
+              _this.setState({ user : null });
+            }}
+            onLoginFound={function(data){
+              console.log("Existing login found.");
+              console.log(data);
+              _this.setState({ user : data.credentials });
+            }}
+            onLoginNotFound={function(){
+              console.log("No user logged in.");
+              _this.setState({ user : null });
+            }}
+            onError={function(data){
+              console.log("ERROR");
+              console.log(data);
+            }}
+            onCancel={function(){
+              console.log("User cancelled.");
+            }}
+            onPermissionsMissing={function(data){
+              console.log("Check permissions!");
+              console.log(data);
+            }}
+          />
             <TouchableOpacity onPress={() =>{
                 this.props.navigator.push({
                   title: 'Home',
@@ -39,27 +188,22 @@ class Welcome extends React.Component{
             <TouchableOpacity onPress={() =>{
                 this.props.navigator.push({
                   title: 'Create',
-                  component: Create
+                  component: Create,
+                  passProps: {loading: this.props.loading}
                 })
               }
             }
             style={globals.button}>
               <Text style={globals.buttonText}>Create</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() =>{
-                this.props.navigator.push({
-                  title: 'My Groups',
-                  component: myGroups
-                })
-              }
-            }
+            <TouchableOpacity onPress={this._handleClick}
             style={globals.button}>
               <Text style={globals.buttonText}>My Groups</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() =>{
                 this.props.navigator.push({
-                  title: 'My Groups',
-                  component: myGroups
+                  title: 'User Profile',
+                  component: userProfile
                 })
               }
             }
