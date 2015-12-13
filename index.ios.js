@@ -42,8 +42,6 @@ class Assembly extends React.Component{
     this.setState({loading: bool});
   }
   _setUser (data) {
-    console.log(data);
-    console.log('setting new user state');
     this.setState({user: data});
   }
   componentWillMount () {
@@ -55,7 +53,6 @@ class Assembly extends React.Component{
   }
   render() {
     StatusBarIOS.setStyle('light-content');
-    console.log(this.state.user);
     return (
       <View style={styles.container}>
       <NavigatorIOS

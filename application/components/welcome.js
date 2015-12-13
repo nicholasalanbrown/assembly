@@ -51,9 +51,7 @@ class Welcome extends React.Component{
                 this.props.loading(false);
                 console.log("User exists");
                 let user = data[0];
-                console.log(user);
                 delete user["id"];
-                this.setState({user: user});
                 this.props.setUser(user);
             }
             else {
@@ -91,7 +89,6 @@ class Welcome extends React.Component{
         .done();
   }
   _getUserProfile(id) {
-    console.log(id);
     this.props.loading(true);
     let user = this.state.user;
     let api = "https://graph.facebook.com/me?fields=id,name,email&access_token="+user.token;
@@ -163,7 +160,6 @@ class Welcome extends React.Component{
             onLogout={function(){
               console.log("Logged out.");
               _this.setState({ user : null });
-              _this.props.setUser(null);
             }}
             onLoginFound={function(data){
               console.log("Existing login found.");
