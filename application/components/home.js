@@ -161,7 +161,7 @@ class Home extends React.Component{
             onLogout={function(){
               console.log("Logged out.");
               _this.setState({ user : null });
-              _this.props.setUser(null);
+              _this.props.setUser({});
             }}
             onLoginFound={function(data){
               console.log("Existing login found.");
@@ -169,7 +169,7 @@ class Home extends React.Component{
             }}
             onLoginNotFound={function(){
               console.log("No user logged in.");
-              _this.setState({ user : null });
+              _this.setState({ user : {} });
             }}
             onError={function(data){
               console.log("ERROR");
