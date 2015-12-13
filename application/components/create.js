@@ -2,10 +2,13 @@ import React from 'react-native';
 import Globals from '../styles/globals';
 import Input from './shared/input';
 import Loading from './shared/loading';
+import _ from 'underscore';
 
 let {
     View,
+    ScrollView,
     Text,
+    DatePickerIOS,
     TouchableOpacity,
     StyleSheet,
 } = React;
@@ -15,42 +18,28 @@ class Create extends React.Component {
         super(props);
         this._handleChange = this._handleChange.bind(this);
         this._handleClick = this._handleClick.bind(this);
+        this._onDateChange = this._onDateChange.bind(this);
         this.state = {
             data: null,
+            groupId: "12345",
             formData: {
-                groupName: "",
-                groupDescription: ""
+                eventName: "",
+                eventDescription: "",
+                eventDate: new Date()
             }
         }
     }
-    componentDidMount () {
-        this.props.loading(true);
-        fetch("http://localhost:2403/groups/", {
-                method: "GET"
-            })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.errors) {
-                    this.props.loading(false);
-                    console.log(data.errors);
-                }
-                else {
-                    this.props.loading(false);
-                    console.log(data);
-                }
-            })
-            .catch((error) => console.log(error))
-            .done();
-    }
     _createEvent() {
         this.props.loading(true);
-        fetch("http://localhost:2403/groups", {
+        let requestData = this.state.formData;
+        _.extend(requestData, {groupId: this.state.groupId});
+        fetch("http://localhost:2403/events", {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(this.state.formData)
+                body: JSON.stringify(requestData)
             })
             .then((response) => response.json())
             .then((data) => {
@@ -65,12 +54,6 @@ class Create extends React.Component {
             })
             .catch((error) => console.log(error))
             .done();
-    }
-    _nextRoute() {
-        this.props.navigator.push({
-            title: 'Home',
-            component: Home
-        })
     }
     _handleChange(name, text) {
         let formData = this.state.formData;
@@ -83,36 +66,58 @@ class Create extends React.Component {
         this.props.loading(true);
         this._createEvent();
     }
+    _onDateChange(date) {
+        this._handleChange("eventDate", date);
+        console.log(this.state.formData);
+    }
     render() {
         return (
-            <View style={{flex : 1}}>
-          <Loading />
-          <View style={Globals.inactiveContainer}>
-            <Input
-              placeholder="this is a placeholder"
-              label="What's the event name?"
-              name="groupName"
-              value={this.state.formData.groupName}
-              handleChange={this._handleChange}
-            />
-            <Input 
-              placeholder="this is a placeholder" 
-              label="What's happening at the event?"
-              type="textarea"
-              name="groupDescription"
-              value={this.state.formData.groupDescription}
-              handleChange={this._handleChange}
-            />
-            <TouchableOpacity onPress={this._handleClick} style={[Globals.button, styles.button]}>
-              <Text style={Globals.buttonText}>Create Event</Text>
-            </TouchableOpacity>
-        </View>
+        <View style={{flex : 1}}>
+            <View style={Globals.inactiveContainer}>
+                <ScrollView style={styles.scrollView}>
+                    <Input
+                      placeholder="this is a placeholder"
+                      label="What's the event name?"
+                      name="eventName"
+                      value={this.state.formData.eventName}
+                      handleChange={this._handleChange}
+                    />
+                    <Input
+                      placeholder="this is a placeholder"
+                      label="What's happening at the event?"
+                      type="textarea"
+                      name="eventDescription"
+                      value={this.state.formData.eventDescription}
+                      handleChange={this._handleChange}
+                    />
+                    <Input
+                        label="When is the event?"
+                        name="eventDate"
+                        type="datePicker"
+                        date={this.state.formData.eventDate}
+                        onDateChange={this._onDateChange}
+                    />
+                    <Input
+                        label="Wat time is the event?"
+                        name="eventTime"
+                        type="timePicker"
+                        date={this.state.formData.eventDate}
+                        onDateChange={this._onDateChange}
+                    />
+                    <TouchableOpacity onPress={this._handleClick} style={[Globals.button, styles.button]}>
+                      <Text style={Globals.buttonText}>Create Event</Text>
+                    </TouchableOpacity>
+                </ScrollView>
+            </View>
         </View>
         )
     }
 };
 
 const styles = StyleSheet.create({
+    scrollView: {
+        paddingTop: 60
+    },
     button: {
         alignSelf: 'flex-end'
     }

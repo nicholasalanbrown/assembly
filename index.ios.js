@@ -63,7 +63,6 @@ class Assembly extends React.Component{
                 delete userData["id"];
                 user.profile = userData.profile;
                 this._setUser(user);
-                console.log(this.state.user);
             }
             else {
                 console.log("User doesnt exist");
@@ -114,7 +113,6 @@ class Assembly extends React.Component{
                 console.log(data.errors);
             }
             else {
-                console.log(data);
                 data.picture = "https://graph.facebook.com/"+user.userId+"/picture?type=large";
                 user.profile = data;
                 this.setState({user: user})
@@ -185,7 +183,6 @@ class Assembly extends React.Component{
     });
   }
   render() {
-    console.log(this.state.user);
     StatusBarIOS.setStyle('light-content');
     return (
       <View style={styles.container}>

@@ -1,0 +1,37 @@
+{
+	"type": "Collection",
+	"properties": {
+		"groupId": {
+			"name": "groupId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "groupId",
+			"order": 0
+		},
+		"eventName": {
+			"name": "eventName",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "eventName",
+			"order": 1
+		},
+		"eventDescription": {
+			"name": "eventDescription",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "eventDescription",
+			"order": 2
+		},
+		"eventDate": {
+			"name": "eventDate",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "eventDate",
+			"order": 3
+		}
+	}
+}

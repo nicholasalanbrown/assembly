@@ -6,6 +6,7 @@ let {
   View,
   Text,
   TextInput,
+  DatePickerIOS,
   StyleSheet,
 } = React;
 
@@ -16,7 +17,6 @@ class Input extends React.Component{
       error: ''
     }
   }
-
   render(){
       switch (this.props.type) {
           case "textarea":
@@ -32,6 +32,27 @@ class Input extends React.Component{
                   onChangeText={(text) => this.props.handleChange(this.props.name, text)}
                 />
               );
+              break;
+          case "datePicker":
+              inputType = (
+                <DatePickerIOS
+                    style={styles.datePicker}
+                    date={this.props.date}
+                    mode="date"
+                    onDateChange={this.props.onDateChange}
+                />
+              )
+              break;
+          case "timePicker":
+              inputType = (
+                <DatePickerIOS
+                    style={styles.datePicker}
+                    date={this.props.date}
+                    mode="time"
+                    onDateChange={this.props.onDateChange}
+                    minuteInterval={15}
+                />
+              )
               break;
           default:
               inputType = (
@@ -62,7 +83,7 @@ class Input extends React.Component{
 };
 
 
-Input.propTypes = { 
+Input.propTypes = {
   placeholder: React.PropTypes.string,
   label: React.PropTypes.string.isRequired,
   type: React.PropTypes.string,
@@ -73,6 +94,10 @@ Input.propTypes = {
 };
 
 const styles = StyleSheet.create({
+  datePicker: {
+    backgroundColor: '#ffffff',
+    alignItems: 'center'
+  }
 });
 
 module.exports = Input;

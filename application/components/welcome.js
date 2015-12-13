@@ -30,7 +30,7 @@ class Welcome extends React.Component{
   _handlePress () {
     FBLoginManager.loginWithPermissions(["email","user_friends"], function(error, data){
       if (!error) {
-        console.log("Login data: ", data);
+        return;
       } else {
         console.log("Error: ", data);
       }
