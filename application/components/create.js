@@ -92,14 +92,7 @@ class Create extends React.Component {
                     <Input
                         label="When is the event?"
                         name="eventDate"
-                        type="datePicker"
-                        date={this.state.formData.eventDate}
-                        onDateChange={this._onDateChange}
-                    />
-                    <Input
-                        label="Wat time is the event?"
-                        name="eventTime"
-                        type="timePicker"
+                        type="dateTimePicker"
                         date={this.state.formData.eventDate}
                         onDateChange={this._onDateChange}
                     />

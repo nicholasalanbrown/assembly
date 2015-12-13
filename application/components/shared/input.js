@@ -33,12 +33,12 @@ class Input extends React.Component{
                 />
               );
               break;
-          case "datePicker":
+          case "dateTimePicker":
               inputType = (
                 <DatePickerIOS
                     style={styles.datePicker}
                     date={this.props.date}
-                    mode="date"
+                    mode="datetime"
                     onDateChange={this.props.onDateChange}
                 />
               )
