@@ -2,7 +2,6 @@ import React from 'react-native';
 import Globals from '../styles/globals';
 import Input from './shared/input';
 import Loading from './shared/loading';
-import _ from 'underscore';
 
 let {
     View,
@@ -32,7 +31,7 @@ class Create extends React.Component {
     _createEvent() {
         this.props.loading(true);
         let requestData = this.state.formData;
-        _.extend(requestData, {groupId: this.state.groupId});
+        Object.assign(requestData, {groupId: this.state.groupId});
         fetch("http://localhost:2403/events", {
                 method: "POST",
                 headers: {
