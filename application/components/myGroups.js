@@ -4,6 +4,7 @@ import GroupCard from './groups/groupCard';
 
 let {
   View,
+  ScrollView,
   Text,
   TouchableOpacity,
   StyleSheet,
@@ -47,14 +48,21 @@ class MyGroups extends React.Component{
         );
       });
       return (
-        <View style={Globals.twoColumnGridContainer}>
-          {myGroups}
-        </View>
+        <ScrollView style={styles.container}>
+          <Text style={Globals.heading}>Your Groups</Text>
+          <View style={Globals.twoColumnGridContainer}>
+            {myGroups}
+          </View>
+        </ScrollView>
       )
     }
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 20
+  }
 });
 
 module.exports = MyGroups;

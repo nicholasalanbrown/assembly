@@ -16,12 +16,16 @@ let globals = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		paddingTop: 100
 	},
 	inactiveContainer: {
 		flex: 1,
 		backgroundColor: Colors.inactive,
 		justifyContent: 'center'
+	},
+	heading: {
+		color: Colors.bodyText,
+		fontSize: 24,
+		padding: 10
 	},
 	button: {
 		height: 60,
