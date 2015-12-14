@@ -8,6 +8,8 @@ import Colors from './application/styles/colors';
 import Globals from './application/styles/globals';
 import Loading from './application/components/shared/loading';
 import FBLogin from 'react-native-facebook-login';
+import faker from 'faker';
+import _ from 'underscore';
 
 let {
   AppRegistry,
@@ -33,7 +35,8 @@ class Assembly extends React.Component{
     super(props);
     this.state = {
       loading: false,
-      user: {}
+      user: {},
+      fakeData:[]
     }
   }
   _toggleLoading (bool) {
@@ -181,6 +184,46 @@ class Assembly extends React.Component{
           console.log("loginnotfound");
         this.setState({user: {}})
     });
+    /*
+      let fakeData = []
+      _.each(_.range(500), function(){
+        var userId = faker.random.uuid();
+        var username = "facebook_"+userId;
+        var email = faker.internet.email();
+        var name = faker.name.findName();
+        var picture = faker.image.avatar();
+        var newUser = {
+          username: username,
+          userId: userId,
+          password: "password",
+          profile: {
+            id: userId,
+            name: name,
+            email: email,
+            picture: picture
+          }
+        }
+      let user = newUser;
+      fetch("http://localhost:2403/users", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user)
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.errors) {
+                console.log(data.errors);
+            }
+            else {
+            }
+        })
+        .catch((error) => console.log(error))
+        .done();
+      })
+    */
   }
   render() {
     StatusBarIOS.setStyle('light-content');

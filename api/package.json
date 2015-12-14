@@ -1,7 +1,8 @@
 {
-    "dependencies": {
-        "deployd": "^0.7.0",
-        "dpd-passport": "0.3.5",
-        "dpd-fileupload": "^0.0.10"
-    }
+  "dependencies": {
+    "deployd": "^0.7.0",
+    "dpd-feeder": "^0.1.2",
+    "dpd-fileupload": "^0.0.10",
+    "dpd-passport": "0.3.5"
+  }
 }
