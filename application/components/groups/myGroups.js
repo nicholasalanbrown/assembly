@@ -42,13 +42,12 @@ class MyGroups extends React.Component{
         .catch((error) => console.log(error))
         .done();
   }
-  _viewGroup(id) {
-    console.log('test');
+  _viewGroup(groupData) {
     this.props.navigator.push({
       title: 'View Group',
       component: ViewGroup,
       passProps: {
-        groupId: id,
+        groupData: groupData,
         loading: this.props.loading,
         user: this.props.user
       }
@@ -58,7 +57,7 @@ class MyGroups extends React.Component{
       let _this = this;
       let myGroups = this.state.data.map(function(group) {
         return (
-          <GroupCard groupId={group.id} viewGroup={_this._viewGroup} groupName={group.groupName} key={group.id} />
+          <GroupCard groupData={group} viewGroup={_this._viewGroup} groupName={group.groupName} key={group.id} />
         );
       });
       return (

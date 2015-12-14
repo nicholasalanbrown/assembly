@@ -23,7 +23,7 @@ class GroupCard extends React.Component{
     }
   }
   _viewGroup() {
-    this.props.viewGroup(this.props.groupId);
+    this.props.viewGroup(this.props.groupData);
   }
   render(){
       return (
