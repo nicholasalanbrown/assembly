@@ -1,5 +1,6 @@
 import React from 'react-native';
 import Globals from '../styles/globals';
+import Config from '../../config';
 import Input from './shared/input';
 import Loading from './shared/loading';
 
@@ -32,7 +33,7 @@ class createEvent extends React.Component {
         this.props.loading(true);
         let requestData = this.state.formData;
         Object.assign(requestData, {groupId: this.state.groupId, createdBy: this.props.user.userId});
-        fetch("http://localhost:2403/events", {
+        fetch(Config.apiBaseUrl+"/events", {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',

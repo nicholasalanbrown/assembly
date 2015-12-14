@@ -1,5 +1,7 @@
 import React from 'react-native';
 import Globals from '../styles/globals';
+import Config from '../../config';
+import Technologies from '../technologies';
 import Input from './shared/input';
 import Loading from './shared/loading';
 
@@ -29,7 +31,7 @@ class createGroup extends React.Component {
         this.props.loading(true);
         let requestData = this.state.formData;
         Object.assign(requestData, {createdBy: this.props.user.userId});
-        fetch("http://localhost:2403/groups", {
+        fetch(Config.apiBaseUrl+"/groups", {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',
@@ -63,6 +65,11 @@ class createGroup extends React.Component {
         this._createGroup();
     }
     render() {
+          let technologyList = Technologies.map(function(string, index) {
+            return (
+              <Text key={index}>{string}</Text>
+            );
+          });
         return (
         <View style={{flex : 1}}>
             <View style={Globals.inactiveContainer}>
@@ -82,6 +89,7 @@ class createGroup extends React.Component {
                       value={this.state.formData.eventDescription}
                       handleChange={this._handleChange}
                     />
+                    {technologyList}
                     <TouchableOpacity onPress={this._handleSubmit} style={[Globals.button, styles.button]}>
                       <Text style={Globals.buttonText}>Create Group</Text>
                     </TouchableOpacity>

@@ -6,6 +6,7 @@ import Welcome from './application/components/welcome';
 import Home from './application/components/home';
 import Colors from './application/styles/colors';
 import Globals from './application/styles/globals';
+import Config from './config';
 import Loading from './application/components/shared/loading';
 import FBLogin from 'react-native-facebook-login';
 import faker from 'faker';
@@ -224,6 +225,26 @@ class Assembly extends React.Component{
         .done();
       })
     */
+      var params = JSON.stringify({id:"count"});
+      fetch("http://localhost:2403/users/count", {
+            method: "GET",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.errors) {
+                console.log(data.errors);
+            }
+            else {
+              console.log(data);
+            }
+        })
+        .catch((error) => console.log(error))
+        .done();
+
   }
   render() {
     StatusBarIOS.setStyle('light-content');

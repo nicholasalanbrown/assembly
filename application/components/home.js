@@ -96,20 +96,6 @@ class Home extends React.Component{
             </TouchableOpacity>
             <TouchableOpacity onPress={() =>{
                 this.props.navigator.push({
-                  title: 'My Groups',
-                  component: myGroups,
-                  passProps: {
-                    loading: this.props.loading,
-                    user: this.props.user
-                  }
-                })
-              }
-            }
-            style={globals.button}>
-              <Text style={globals.buttonText}>My Groups</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() =>{
-                this.props.navigator.push({
                   title: 'Chat',
                   component: chat
                 })

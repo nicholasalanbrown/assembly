@@ -1,5 +1,6 @@
 import React from 'react-native';
 import Globals from '../../styles/globals';
+import Config from '../../../config';
 import ViewGroup from './viewGroup';
 import GroupCard from './groupCard';
 
@@ -21,7 +22,7 @@ class MyGroups extends React.Component{
   }
   componentDidMount () {
     this.props.loading(true);
-    fetch("http://localhost:2403/groups?createdBy="+this.props.user.userId, {
+    fetch(Config.apiBaseUrl+"/groups?createdBy="+this.props.user.userId, {
             method: "GET",
             headers: {
                 'Accept': 'application/json',
