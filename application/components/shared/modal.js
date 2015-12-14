@@ -48,14 +48,8 @@ class Modal extends React.Component{
           <TouchableOpacity onPress={this.closeModal} style={styles.backdropTouch}><View></View></TouchableOpacity>
           <Animated.View style={[styles.modal, {transform: [{translateY: this.state.offset}]}]}>
           <View style={styles.nav}>
-          <Text style={[styles.headingText, Globals.h4]}>commentary</Text>
+            <Text style={[styles.headingText, Globals.h4]}>{this.props.title}</Text>
           </View>
-          {/*
-          <View style={styles.heading}>
-            <Text style={[styles.headingText, Globals.h4]}>{this.props.titleEnglish}</Text>
-            <Text style={[styles.headingText, Globals.h5]}>verse {this.props.verseNumber}</Text>
-          </View>
-          */}
           <View style={styles.commentaryContainer}>
             <ScrollView
               style={styles.scrollView}
@@ -107,18 +101,17 @@ var styles = StyleSheet.create({
   },
   nav: {
     flexDirection: 'row',
-    backgroundColor: Colors.brandAccent,
-    height: 50,
-    justifyContent: 'space-between',
+    backgroundColor: Colors.brandPrimary,
+    paddingTop: 26,
+    height: 60,
+    justifyContent: 'center'
   },
   heading: {
     justifyContent: 'center'
   },
   headingText: {
     color: '#ffffff',
-    textAlign: 'center',
-    paddingVertical: 11,
-    paddingHorizontal: 20
+    fontSize: 18
   },
   icon: {
     paddingVertical: 10,

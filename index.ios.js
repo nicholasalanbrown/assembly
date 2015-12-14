@@ -39,6 +39,7 @@ class Assembly extends React.Component{
       loading: false,
       user: {},
       modal: true,
+      modalProps: {title: "Technology Tags"},
       fakeData:[]
     }
   }
@@ -252,7 +253,7 @@ class Assembly extends React.Component{
     StatusBarIOS.setStyle('light-content');
     let modal;
     if (this.state.modal) {
-      modal = <Modal />
+      modal = <Modal title={this.state.modalProps.title} />
     }
     else {
       modal = null;
