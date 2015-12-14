@@ -16,7 +16,7 @@ class createEvent extends React.Component {
     constructor(props) {
         super(props);
         this._handleChange = this._handleChange.bind(this);
-        this._handleClick = this._handleClick.bind(this);
+        this._handleSubmit = this._handleSubmit.bind(this);
         this._onDateChange = this._onDateChange.bind(this);
         this.state = {
             data: null,
@@ -61,7 +61,7 @@ class createEvent extends React.Component {
           formData: formData
         });
     }
-    _handleClick() {
+    _handleSubmit() {
         this.props.loading(true);
         this._createEvent();
     }
@@ -95,7 +95,7 @@ class createEvent extends React.Component {
                         date={this.state.formData.eventDate}
                         onDateChange={this._onDateChange}
                     />
-                    <TouchableOpacity onPress={this._handleClick} style={[Globals.button, styles.button]}>
+                    <TouchableOpacity onPress={this._handleSubmit} style={[Globals.button, styles.button]}>
                       <Text style={Globals.buttonText}>Create Event</Text>
                     </TouchableOpacity>
                 </ScrollView>

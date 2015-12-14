@@ -18,13 +18,17 @@ let {
 class GroupCard extends React.Component{
   constructor(props){
     super(props);
+    this._viewGroup = this._viewGroup.bind(this);
     this.state = {
     }
+  }
+  _viewGroup() {
+    this.props.viewGroup(this.props.groupId);
   }
   render(){
       return (
         <View style={styles.cardContainer}>
-          <TouchableOpacity style={styles.card}>
+          <TouchableOpacity style={styles.card} onPress={this._viewGroup}>
             <Text style={styles.text}>{this.props.groupName}</Text>
           </TouchableOpacity>
         </View>

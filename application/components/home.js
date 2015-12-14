@@ -2,11 +2,10 @@ import React from 'react-native';
 import globals from '../styles/globals';
 import createEvent from './createEvent';
 import createGroup from './createGroup';
-import myGroups from './myGroups';
+import myGroups from './groups/myGroups';
 import userProfile from './userProfile';
 import chat from './chat';
 import myProfile from './myProfile';
-import viewGroup from './viewGroup';
 import viewEvent from './viewEvent';
 import FBLogin from 'react-native-facebook-login';
 let NativeModules = require('react-native').NativeModules;
@@ -97,6 +96,20 @@ class Home extends React.Component{
             </TouchableOpacity>
             <TouchableOpacity onPress={() =>{
                 this.props.navigator.push({
+                  title: 'My Groups',
+                  component: myGroups,
+                  passProps: {
+                    loading: this.props.loading,
+                    user: this.props.user
+                  }
+                })
+              }
+            }
+            style={globals.button}>
+              <Text style={globals.buttonText}>My Groups</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() =>{
+                this.props.navigator.push({
                   title: 'Chat',
                   component: chat
                 })
@@ -104,16 +117,6 @@ class Home extends React.Component{
             }
             style={globals.button}>
               <Text style={globals.buttonText}>Chat</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() =>{
-                this.props.navigator.push({
-                  title: 'View Group',
-                  component: viewGroup
-                })
-              }
-            }
-            style={globals.button}>
-              <Text style={globals.buttonText}>View Group</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() =>{
                 this.props.navigator.push({
