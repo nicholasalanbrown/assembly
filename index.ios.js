@@ -38,7 +38,7 @@ class Assembly extends React.Component{
     this.state = {
       loading: false,
       user: {},
-      modal: true,
+      modal: false,
       modalProps: {title: "Technology Tags"},
       fakeData:[]
     }
@@ -155,6 +155,9 @@ class Assembly extends React.Component{
   }
   _setUser (data) {
     this.setState({user: data});
+  }
+  _openModal (props) {
+    this.setState({modalProps: props, modal: true});
   }
   componentWillMount () {
     DeviceEventEmitter.addListener(

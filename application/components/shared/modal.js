@@ -55,6 +55,7 @@ class Modal extends React.Component{
               style={styles.scrollView}
               automaticallyAdjustContentInsets={false}
             >
+              {this.props.children}
             </ScrollView>
           </View>
           </Animated.View>
