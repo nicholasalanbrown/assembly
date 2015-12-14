@@ -8,6 +8,7 @@ import Colors from './application/styles/colors';
 import Globals from './application/styles/globals';
 import Config from './config';
 import Loading from './application/components/shared/loading';
+import Modal from './application/components/shared/modal';
 import FBLogin from 'react-native-facebook-login';
 import faker from 'faker';
 import _ from 'underscore';
@@ -37,6 +38,7 @@ class Assembly extends React.Component{
     this.state = {
       loading: false,
       user: {},
+      modal: true,
       fakeData:[]
     }
   }
@@ -248,6 +250,13 @@ class Assembly extends React.Component{
   }
   render() {
     StatusBarIOS.setStyle('light-content');
+    let modal;
+    if (this.state.modal) {
+      modal = <Modal />
+    }
+    else {
+      modal = null;
+    }
     return (
       <View style={styles.container}>
       <NavigatorIOS
@@ -276,6 +285,7 @@ class Assembly extends React.Component{
         :
       null
       }
+      {modal}
       </View>
     );
   }
