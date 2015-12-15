@@ -3,6 +3,7 @@ import Globals from '../styles/globals';
 import Config from '../../config';
 import Technologies from '../technologies';
 import Input from './shared/input';
+import Cell from './shared/cell';
 import Loading from './shared/loading';
 
 let {
@@ -89,6 +90,15 @@ class createGroup extends React.Component {
                       value={this.state.formData.eventDescription}
                       handleChange={this._handleChange}
                     />
+                  <View style={Globals.inputContainer}>
+                    <Text style={Globals.inputLabel}>What technology is involved?</Text>
+                    {this.state.error ?
+                      <Text style={Globals.inputError}>{this.state.error}</Text>
+                      :
+                      null
+                    }
+                    <Cell placeholder="Choose a technology"/>
+                  </View>
                     {technologyList}
                     <TouchableOpacity onPress={this._handleSubmit} style={[Globals.button, styles.button]}>
                       <Text style={Globals.buttonText}>Create Group</Text>
