@@ -16,8 +16,16 @@ class Cell extends React.Component{
   render () {
     return (
         <View style={styles.cell}>
-          {this.props.placeholder ? <Text style={styles.placeholder}>{this.props.placeholder}</Text> : null}
-          <Icon name="ios-arrow-forward" size={25} color={Colors.placeholderColor} />
+          {this.props.placeholder ?
+            <Text style={styles.placeholder}>{this.props.placeholder}</Text>
+            :
+            <Text style={styles.text}>{this.props.text}</Text>
+          }
+          {this.props.arrow ?
+            <Icon name="ios-arrow-forward" size={25} color={Colors.placeholderColor} />
+            :
+            null
+          }
         </View>
     )
   }
@@ -38,6 +46,10 @@ var styles = StyleSheet.create({
   placeholder: {
     fontSize: 16,
     color: Colors.placeholderColor
+  },
+  text: {
+    fontSize: 16,
+    color: Colors.bodyText
   }
 });
 

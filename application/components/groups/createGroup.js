@@ -1,10 +1,11 @@
 import React from 'react-native';
-import Globals from '../styles/globals';
-import Config from '../../config';
-import Technologies from '../technologies';
-import Input from './shared/input';
-import Cell from './shared/cell';
-import Loading from './shared/loading';
+import Globals from '../../styles/globals';
+import Config from '../../../config';
+import Technologies from '../../technologies';
+import SelectTechnology from './selectTechnology';
+import Input from '../shared/input';
+import Cell from '../shared/cell';
+import Loading from '../shared/loading';
 
 let {
     View,
@@ -66,11 +67,6 @@ class createGroup extends React.Component {
         this._createGroup();
     }
     render() {
-          let technologyList = Technologies.map(function(string, index) {
-            return (
-              <Text key={index}>{string}</Text>
-            );
-          });
         return (
         <View style={{flex : 1}}>
             <View style={Globals.inactiveContainer}>
@@ -97,9 +93,14 @@ class createGroup extends React.Component {
                       :
                       null
                     }
-                    <Cell placeholder="Choose a technology"/>
+                    <TouchableOpacity onPress={() =>
+                      this.props.navigator.push({
+                        title: 'Technology Select',
+                        component: SelectTechnology
+                    })}>
+                      <Cell placeholder="Choose a technology" arrow={true} />
+                    </TouchableOpacity>
                   </View>
-                    {technologyList}
                     <TouchableOpacity onPress={this._handleSubmit} style={[Globals.button, styles.button]}>
                       <Text style={Globals.buttonText}>Create Group</Text>
                     </TouchableOpacity>
