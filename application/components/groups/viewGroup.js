@@ -38,7 +38,7 @@ class ViewGroup extends React.Component{
                 console.log(data.errors);
             }
             else {
-                let groupUsers = data;
+              let groupUsers = data;
                 _.each(groupUsers, function(user) {
                   fetch('http://localhost:2403/groups/'+groupData.id, {
                           method: "PUT",
@@ -54,7 +54,6 @@ class ViewGroup extends React.Component{
                               console.log(data.errors);
                           }
                           else {
-
                           }
                       })
                       .catch((error) => console.log(error))
@@ -68,9 +67,7 @@ class ViewGroup extends React.Component{
   }
   _getMembers() {
     this.props.loading(true);
-    console.log(this.props.groupData.groupMembers);
     let api = 'http://localhost:2403/users?{"userId":{"$in":'+JSON.stringify(this.props.groupData.groupMembers)+'}}';
-    console.log(api);
     fetch(api, {
             method: "GET"
         })
@@ -80,7 +77,6 @@ class ViewGroup extends React.Component{
                 console.log(data.errors);
             }
             else {
-                console.log(data);
                 this.setState({memberData: data})
             }
         })
@@ -89,10 +85,12 @@ class ViewGroup extends React.Component{
     this.props.loading(false);
   }
   componentWillMount() {
+  /*
     let groupData = this.props.groupData;
-    if (typeof groupData.groupMembers == 'undefined') {
-      this._addUserstoGroup();
-    }
+
+    this._addUserstoGroup();
+  */
+    
     this._getMembers();
   }
   render(){

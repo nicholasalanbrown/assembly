@@ -23,6 +23,12 @@ class UserProfile extends React.Component{
   }
   render(){
     console.log(this.props);
+      let _this = this;
+      let myInterests = this.props.userData.profile.interests.map(function(interest, index) {
+        return (
+          <Text key={index} style={styles.technology}>{interest}</Text>
+        );
+      });
       return (
         <ScrollView style={styles.container}>
           <Hero layout="centerLayout" >
@@ -35,6 +41,10 @@ class UserProfile extends React.Component{
               </View>
             </TouchableOpacity>
           </Hero>
+          <Text style={Globals.heading}>Interests</Text>
+          <View style={styles.row}>
+            {myInterests}
+          </View>
         </ScrollView>
       )
     }
@@ -55,8 +65,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 6,
+    alignItems: 'center'
   },
   icon: {
     transform: [{ scaleX: -1 }]  

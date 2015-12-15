@@ -221,7 +221,7 @@ class Assembly extends React.Component{
         var name = faker.name.findName();
         var picture = faker.image.avatar();
         var interestNumber = _.sample([1,2,3])
-        var interest = _.sample(Technologies, interestNumber);
+        var interests = _.sample(Technologies, interestNumber);
         var newUser = {
           username: username,
           userId: userId,
@@ -231,7 +231,7 @@ class Assembly extends React.Component{
             name: name,
             email: email,
             picture: picture,
-            interest: interest
+            interests: interests
           }
         }
       let user = newUser;
