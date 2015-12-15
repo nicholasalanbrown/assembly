@@ -19,8 +19,10 @@ class ViewGroup extends React.Component{
     }
   }
   _addUserstoGroup() {
+    let groupData = this.props.groupData;
+    if (typeof groupData.groupMembers == 'undefined') {
     this.props.loading(true);
-    fetch("http://localhost:2403/users/{$limit: 10}", {
+    fetch('http://localhost:2403/users?{"$limit": 10}', {
             method: "GET",
             headers: {
                 'Accept': 'application/json',
@@ -35,36 +37,39 @@ class ViewGroup extends React.Component{
             }
             else {
                 let groupUsers = data;
+                _.each(groupUsers, function(user) {
+                  fetch('http://localhost:2403/groups/'+groupData.id, {
+                          method: "PUT",
+                          headers: {
+                              'Accept': 'application/json',
+                              'Content-Type': 'application/json',
+                          },
+                          body: JSON.stringify({"groupMembers": {"$push": user.userId}})
+                      })
+                      .then((response) => response.json())
+                      .then((data) => {
+                          if (data.errors) {
+                              console.log(data.errors);
+                          }
+                          else {
+                              
+                              console.log(data);
+
+                          }
+                      })
+                      .catch((error) => console.log(error))
+                      .done();
+                })
             }
         })
         .catch((error) => console.log(error))
         .done();
-    _.each(groupUsers, function(groupUser) {
-      fetch("http://localhost:2403/groups/"+this.props.groupData.id, {
-              method: "PUT",
-              headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({groupMembers: {$push: groupUser.id}})
-          })
-          .then((response) => response.json())
-          .then((data) => {
-              if (data.errors) {
-                  this.props.loading(false);
-                  console.log(data.errors);
-              }
-              else {
-                  this.props.loading(false);
-                  console.log(data);
-              }
-          })
-          .catch((error) => console.log(error))
-          .done();
-    })
+        this.props.loading(false);
+      }
   }
-  componentWillMount() {
+  componentDidMount() {
     this._addUserstoGroup();
+    console.log(this.state);
   }
   render(){
     console.log(this.props);
