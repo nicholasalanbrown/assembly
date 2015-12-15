@@ -3,7 +3,7 @@ import globals from '../styles/globals';
 import createEvent from './createEvent';
 import createGroup from './groups/createGroup';
 import myGroups from './groups/myGroups';
-import userProfile from './userProfile';
+import UserProfile from './users/userProfile';
 import chat from './chat';
 import myProfile from './myProfile';
 import viewEvent from './viewEvent';
@@ -93,6 +93,16 @@ class Home extends React.Component{
             }
             style={globals.button}>
               <Text style={globals.buttonText}>My Groups</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() =>{
+                this.props.navigator.push({
+                  title: 'User Profile',
+                  component: UserProfile
+                })
+              }
+            }
+            style={globals.button}>
+              <Text style={globals.buttonText}>User Profile</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() =>{
                 this.props.navigator.push({

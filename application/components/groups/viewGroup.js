@@ -1,6 +1,8 @@
 import React from 'react-native';
 import Globals from '../../styles/globals';
 import Hero from '../shared/hero';
+import UserCell from '../shared/userCell';
+import UserProfile from '../users/userProfile';
 import _ from 'underscore';
 
 let {
@@ -16,6 +18,7 @@ class ViewGroup extends React.Component{
     super(props);
     this._addUserstoGroup = this._addUserstoGroup.bind(this);
     this.state = {
+      memberData: []
     }
   }
   _addUserstoGroup() {
@@ -78,6 +81,7 @@ class ViewGroup extends React.Component{
             }
             else {
                 console.log(data);
+                this.setState({memberData: data})
             }
         })
         .catch((error) => console.log(error))
@@ -92,10 +96,26 @@ class ViewGroup extends React.Component{
     this._getMembers();
   }
   render(){
-    console.log(this.props.groupData);
+      let _this = this;
+      let members = this.state.memberData.map(function(member, index) {
+        return (
+          <TouchableOpacity key={index} onPress={() =>
+            _this.props.navigator.push({
+              title: "User Profile",
+              component: UserProfile,
+              passProps: {
+                userData: member
+              }
+            })
+          }>
+            <UserCell key={index} userData={member} />
+          </TouchableOpacity>
+        );
+      });
       return (
         <ScrollView style={styles.container}>
           <Hero title={this.props.groupData.groupName} />
+          {members}
         </ScrollView>
       )
     }
