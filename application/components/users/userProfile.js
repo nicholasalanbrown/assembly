@@ -55,7 +55,8 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginLeft: 6,
   },
   icon: {
     transform: [{ scaleX: -1 }]  
