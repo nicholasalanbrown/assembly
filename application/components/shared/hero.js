@@ -22,7 +22,7 @@ class Hero extends React.Component{
   }
   render(){
       return (
-        <View style={styles.container}>
+        <View style={this.props.layout === "centerLayout" ? styles.centerLayout : styles.normalLayout}>
           <Text style={styles.title}>{this.props.title}</Text>
           {this.props.children}
         </View>
@@ -31,7 +31,15 @@ class Hero extends React.Component{
 };
 
 const styles = StyleSheet.create({
-  container: {
+  centerLayout: {
+    height: 240,
+    backgroundColor: '#000000',
+    width: deviceWidth,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20
+  },
+  normalLayout: {
     height: 240,
     backgroundColor: '#000000',
     width: deviceWidth,

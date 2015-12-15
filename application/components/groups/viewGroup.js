@@ -114,7 +114,7 @@ class ViewGroup extends React.Component{
       });
       return (
         <ScrollView style={styles.container}>
-          <Hero title={this.props.groupData.groupName} />
+          <Hero title={this.props.groupData.groupName} layout="normalLayout" />
           {members}
         </ScrollView>
       )

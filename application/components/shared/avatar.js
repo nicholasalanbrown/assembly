@@ -10,7 +10,7 @@ class Avatar extends React.Component{
   render () {
     return (
       <Image 
-        style={styles.picture}
+        style={this.props.size === "large" ? styles.pictureLarge : styles.pictureSmall}
         source={{uri: this.props.source}}
       />
     )
@@ -18,11 +18,16 @@ class Avatar extends React.Component{
 };
 
 var styles = StyleSheet.create({
-  picture: {
+  pictureLarge: {
+    height: 90,
+    width: 90,
+    borderRadius: 45
+  },
+  pictureSmall: {
     height: 40,
     width: 40,
     borderRadius: 20
-  },
+  }
 });
 
 module.exports = Avatar;

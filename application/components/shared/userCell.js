@@ -16,7 +16,7 @@ class UserCell extends React.Component{
   render () {
     return (
         <View style={styles.cell}>
-          <Avatar size="small" source={this.props.userData.profile.picture} />
+          <Avatar source={this.props.userData.profile.picture} />
           <Text style={styles.text}>{this.props.userData.profile.name}</Text>
         </View>
     )
