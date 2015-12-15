@@ -24,6 +24,14 @@
 			"required": false,
 			"id": "groupDescription",
 			"order": 2
+		},
+		"groupMembers": {
+			"name": "groupMembers",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "groupMembers",
+			"order": 3
 		}
 	}
 }
