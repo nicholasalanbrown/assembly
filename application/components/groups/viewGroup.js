@@ -63,13 +63,36 @@ class ViewGroup extends React.Component{
         .done();
         this.props.loading(false);
   }
-  componentDidMount() {
+  _getMembers() {
+    this.props.loading(true);
+    console.log(this.props.groupData.groupMembers);
+    let api = 'http://localhost:2403/users?{"userId":{"$in":'+JSON.stringify(this.props.groupData.groupMembers)+'}}';
+    console.log(api);
+    fetch(api, {
+            method: "GET"
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.errors) {
+                console.log(data.errors);
+            }
+            else {
+                console.log(data);
+            }
+        })
+        .catch((error) => console.log(error))
+        .done();
+    this.props.loading(false);
+  }
+  componentWillMount() {
     let groupData = this.props.groupData;
     if (typeof groupData.groupMembers == 'undefined') {
       this._addUserstoGroup();
     }
+    this._getMembers();
   }
   render(){
+    console.log(this.props.groupData);
       return (
         <ScrollView style={styles.container}>
           <Hero title={this.props.groupData.groupName} />
