@@ -6,6 +6,7 @@ import Welcome from './application/components/welcome';
 import Home from './application/components/home';
 import Colors from './application/styles/colors';
 import Globals from './application/styles/globals';
+import Technologies from './application/technologies';
 import Config from './config';
 import Loading from './application/components/shared/loading';
 import Modal from './application/components/shared/modal';
@@ -193,7 +194,7 @@ class Assembly extends React.Component{
     });
     /*
       let fakeData = []
-      _.each(_.range(500), function(){
+      _.each(_.range(100), function(){
         var userId = faker.random.uuid();
         var username = "facebook_"+userId;
         var email = faker.internet.email();
