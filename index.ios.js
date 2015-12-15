@@ -192,7 +192,27 @@ class Assembly extends React.Component{
           console.log("loginnotfound");
         this.setState({user: {}})
     });
-    /*
+/*
+      var params = JSON.stringify({'userId':'hello'});
+      fetch('http://localhost:2403/users?{"id": {"$ne": 10}}', {
+            method: "DELETE",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.errors) {
+                console.log(data.errors);
+            }
+            else {
+              console.log(data);
+            }
+        })
+        .catch((error) => console.log(error))
+        .done();
+
       let fakeData = []
       _.each(_.range(100), function(){
         var userId = faker.random.uuid();
@@ -200,6 +220,8 @@ class Assembly extends React.Component{
         var email = faker.internet.email();
         var name = faker.name.findName();
         var picture = faker.image.avatar();
+        var interestNumber = _.sample([1,2,3])
+        var interest = _.sample(Technologies, interestNumber);
         var newUser = {
           username: username,
           userId: userId,
@@ -208,7 +230,8 @@ class Assembly extends React.Component{
             id: userId,
             name: name,
             email: email,
-            picture: picture
+            picture: picture,
+            interest: interest
           }
         }
       let user = newUser;
@@ -231,27 +254,7 @@ class Assembly extends React.Component{
         .catch((error) => console.log(error))
         .done();
       })
-    */
-      var params = JSON.stringify({id:"count"});
-      fetch("http://localhost:2403/users/count", {
-            method: "GET",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.errors) {
-                console.log(data.errors);
-            }
-            else {
-              console.log(data);
-            }
-        })
-        .catch((error) => console.log(error))
-        .done();
-
+*/
   }
   render() {
     StatusBarIOS.setStyle('light-content');
