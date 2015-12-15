@@ -1,5 +1,6 @@
 import React from 'react-native';
 import Globals from '../../styles/globals';
+import Colors from '../../styles/colors';
 
 let {
   View,
@@ -33,7 +34,7 @@ class Hero extends React.Component{
 const styles = StyleSheet.create({
   centerLayout: {
     height: 240,
-    backgroundColor: '#000000',
+    backgroundColor: Colors.inactive,
     width: deviceWidth,
     alignItems: 'center',
     justifyContent: 'center',

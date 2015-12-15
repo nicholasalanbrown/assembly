@@ -26,6 +26,7 @@ class UserProfile extends React.Component{
         <ScrollView style={styles.container}>
           <Hero layout="centerLayout" >
             <Avatar size="large" source={this.props.userData.profile.picture} />
+            <Text style={styles.name}>{this.props.userData.profile.name}</Text>
           </Hero>
         </ScrollView>
       )
@@ -39,6 +40,10 @@ const styles = StyleSheet.create({
   hero: {
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  name: {
+    fontSize: 16,
+    padding: 20
   }
 });
 
