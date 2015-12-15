@@ -42,7 +42,7 @@ class UserProfile extends React.Component{
             </TouchableOpacity>
           </Hero>
           <Text style={Globals.heading}>Interests</Text>
-          <View style={styles.row}>
+          <View style={styles.rowLeft}>
             {myInterests}
           </View>
         </ScrollView>
@@ -67,6 +67,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  rowLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 8
+  },
   icon: {
     transform: [{ scaleX: -1 }]  
   },
@@ -74,6 +79,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: Colors.brandPrimary,
     padding: 12
+  },
+  technology: {
+    color: Colors.bodyText,
+    textAlign: 'left',
+    fontSize: 16,
+    padding: 8
   }
 });
 
