@@ -20,7 +20,6 @@ class ViewGroup extends React.Component{
   }
   _addUserstoGroup() {
     let groupData = this.props.groupData;
-    if (typeof groupData.groupMembers == 'undefined') {
     this.props.loading(true);
     fetch('http://localhost:2403/users?{"$limit": 10}', {
             method: "GET",
@@ -52,8 +51,6 @@ class ViewGroup extends React.Component{
                               console.log(data.errors);
                           }
                           else {
-                              
-                              console.log(data);
 
                           }
                       })
@@ -65,14 +62,14 @@ class ViewGroup extends React.Component{
         .catch((error) => console.log(error))
         .done();
         this.props.loading(false);
-      }
   }
   componentDidMount() {
-    this._addUserstoGroup();
-    console.log(this.state);
+    let groupData = this.props.groupData;
+    if (typeof groupData.groupMembers == 'undefined') {
+      this._addUserstoGroup();
+    }
   }
   render(){
-    console.log(this.props);
       return (
         <ScrollView style={styles.container}>
           <Hero title={this.props.groupData.groupName} />
