@@ -18,6 +18,7 @@ class Chat extends React.Component{
   constructor(props){
     super(props);
     this._sendMessage = this._sendMessage.bind(this);
+    this._getMessages = this._getMessages.bind(this);
     this.state = {
       text: ""
     }
@@ -36,6 +37,31 @@ class Chat extends React.Component{
                   'Content-Type': 'application/json',
               },
               body: JSON.stringify(requestData)
+          })
+          .then((response) => response.json())
+          .then((data) => {
+              if (data.errors) {
+                  console.log(data.errors);
+              }
+              else {
+                  console.log(data);
+              }
+          })
+          .catch((error) => console.log(error))
+          .done();
+  }
+  componentWillMount () {
+    this._getMessages();
+  }
+  _getMessages() {
+      let sender = this.props.currentUser;
+      let recipient = this.props.otherUser;
+      fetch(Config.apiBaseUrl+"/messages?sender="+sender+"&recipient="+recipient, {
+              method: "GET",
+              headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+              },
           })
           .then((response) => response.json())
           .then((data) => {
