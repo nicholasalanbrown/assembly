@@ -54,6 +54,7 @@ class ViewGroup extends React.Component{
                               console.log(data.errors);
                           }
                           else {
+                              console.log(data);
                           }
                       })
                       .catch((error) => console.log(error))
@@ -85,13 +86,13 @@ class ViewGroup extends React.Component{
     this.props.loading(false);
   }
   componentWillMount() {
-  /*
+    /*
     let groupData = this.props.groupData;
 
     this._addUserstoGroup();
-  */
     
     this._getMembers();
+    */
   }
   render(){
       let _this = this;
