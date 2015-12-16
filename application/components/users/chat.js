@@ -82,7 +82,7 @@ class Chat extends React.Component{
       let messages = this.state.messages.map(function(message, index) {
         return (
           <View key={index} style={styles.row}>
-            <Text style={styles.message} key={index}>{message.text}</Text>
+            <Text style={message.sender === _this.props.currentUser ? styles.messageSent : styles.messageReceived} key={index}>{message.text}</Text>
           </View>
         );
       });
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     justifyContent: 'flex-end'
   },
-  message: {
+  messageSent: {
     color: '#ffffff',
     fontSize: 16,
     backgroundColor: Colors.brandPrimary,
@@ -136,6 +136,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     borderRadius: 8,
     textAlign: 'right'
+  },
+  messageReceived: {
+    color: Colors.bodyText,
+    fontSize: 16,
+    backgroundColor: Colors.inactive,
+    paddingVertical: 5,
+    paddingHorizontal: 8,
+    borderRadius: 8
   },
   inputContainer: {
     height: 50,
