@@ -1,0 +1,37 @@
+{
+	"type": "Collection",
+	"properties": {
+		"sender": {
+			"name": "sender",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "sender",
+			"order": 0
+		},
+		"recipient": {
+			"name": "recipient",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "recipient",
+			"order": 1
+		},
+		"timestamp": {
+			"name": "timestamp",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "timestamp",
+			"order": 2
+		},
+		"text": {
+			"name": "text",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "text",
+			"order": 3
+		}
+	}
+}

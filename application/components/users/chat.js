@@ -7,7 +7,9 @@ import _ from 'underscore';
 let {
   View,
   ScrollView,
+  TextInput,
   Text,
+  TouchableOpacity,
   StyleSheet,
 } = React;
 
@@ -15,13 +17,25 @@ class Chat extends React.Component{
   constructor(props){
     super(props);
     this.state = {
+      text: ""
     }
   }
   render(){
       return (
         <View style={styles.container}>
-        <ScrollView>
-        </ScrollView>
+          <ScrollView style={styles.scrollView}>
+          </ScrollView>
+          <View style={styles.inputContainer}>
+            <TextInput 
+              style={styles.input} 
+              placeholder="Type a message..." 
+              onChangeText={(text) => this.setState({text})}
+              value={this.state.text}
+            />
+            <TouchableOpacity style={styles.sendButton}>
+              <Text style={styles.sendText}>Send</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       )
     }
@@ -31,37 +45,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  hero: {
+  scrollView: {
+    flex: 1,
+    borderBottomWidth: 2,
+    borderBottomColor: Colors.inactive
+  },
+  inputContainer: {
+    height: 50,
+    flexDirection: 'row'
+  },
+  input: {
+    flex: 1,
+    paddingLeft: 12
+  },
+  sendButton: {
+    width: 70,
     alignItems: 'center',
     justifyContent: 'center'
   },
-  name: {
-    fontSize: 20,
-    padding: 20
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  rowLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 8
-  },
-  icon: {
-    transform: [{ scaleX: -1 }]  
-  },
-  messageCTA: {
-    fontSize: 16,
-    color: Colors.brandPrimary,
-    padding: 12
-  },
-  technology: {
-    color: Colors.bodyText,
-    textAlign: 'left',
-    fontSize: 16,
-    padding: 8
+  sendText: {
+    color: Colors.brandPrimary
   }
 });
 
