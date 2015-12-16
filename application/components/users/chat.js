@@ -20,7 +20,8 @@ class Chat extends React.Component{
     this._sendMessage = this._sendMessage.bind(this);
     this._getMessages = this._getMessages.bind(this);
     this.state = {
-      text: ""
+      text: "",
+      messages: []
     }
   }
   _sendMessage() {
@@ -70,15 +71,25 @@ class Chat extends React.Component{
               }
               else {
                   console.log(data);
+                  this.setState({messages: data})
               }
           })
           .catch((error) => console.log(error))
           .done();
   }
   render(){
+      let _this = this;
+      let messages = this.state.messages.map(function(message, index) {
+        return (
+          <View key={index} style={styles.row}>
+            <Text style={styles.message} key={index}>{message.text}</Text>
+          </View>
+        );
+      });
       return (
         <View style={styles.container}>
           <ScrollView style={styles.scrollView}>
+            {messages}
           </ScrollView>
           <View style={styles.inputContainer}>
             <TextInput 
@@ -109,6 +120,22 @@ const styles = StyleSheet.create({
     flex: 1,
     borderBottomWidth: 2,
     borderBottomColor: Colors.inactive
+  },
+  row: {
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    marginVertical: 6,
+    paddingHorizontal: 12,
+    justifyContent: 'flex-end'
+  },
+  message: {
+    color: '#ffffff',
+    fontSize: 16,
+    backgroundColor: Colors.brandPrimary,
+    paddingVertical: 5,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    textAlign: 'right'
   },
   inputContainer: {
     height: 50,
