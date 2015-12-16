@@ -19,13 +19,13 @@ class UserProfile extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      userData: {}
+      otherUser: {}
     }
   }
   render(){
     console.log(this.props);
       let _this = this;
-      let myInterests = this.props.userData.profile.interests.map(function(interest, index) {
+      let myInterests = this.props.otherUser.profile.interests.map(function(interest, index) {
         return (
           <Text key={index} style={styles.technology}>{interest}</Text>
         );
@@ -33,13 +33,17 @@ class UserProfile extends React.Component{
       return (
         <ScrollView style={styles.container}>
           <Hero layout="centerLayout" >
-            <Avatar size="large" source={this.props.userData.profile.picture} />
-            <Text style={styles.name}>{this.props.userData.profile.name}</Text>
+            <Avatar size="large" source={this.props.otherUser.profile.picture} />
+            <Text style={styles.name}>{this.props.otherUser.profile.name}</Text>
             <TouchableOpacity
             onPress={() =>{
                 this.props.navigator.push({
                   title: 'Chat',
-                  component: Chat
+                  component: Chat,
+                  passProps: {
+                    otherUser: _this.props.otherUser.userId,
+                    currentUser: _this.props.currentUser.userId
+                  }
                 })
               }
             }

@@ -103,7 +103,8 @@ class ViewGroup extends React.Component{
               title: "User Profile",
               component: UserProfile,
               passProps: {
-                userData: member
+                otherUser: member,
+                currentUser: _this.props.user
               }
             })
           }>
