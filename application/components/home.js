@@ -4,7 +4,6 @@ import createEvent from './createEvent';
 import createGroup from './groups/createGroup';
 import myGroups from './groups/myGroups';
 import UserProfile from './users/userProfile';
-import chat from './chat';
 import myProfile from './myProfile';
 import viewEvent from './viewEvent';
 import FBLogin from 'react-native-facebook-login';
@@ -103,16 +102,6 @@ class Home extends React.Component{
             }
             style={globals.button}>
               <Text style={globals.buttonText}>User Profile</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() =>{
-                this.props.navigator.push({
-                  title: 'Chat',
-                  component: chat
-                })
-              }
-            }
-            style={globals.button}>
-              <Text style={globals.buttonText}>Chat</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() =>{
                 this.props.navigator.push({

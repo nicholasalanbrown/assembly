@@ -86,13 +86,13 @@ class ViewGroup extends React.Component{
     this.props.loading(false);
   }
   componentWillMount() {
-    /*
-    let groupData = this.props.groupData;
 
+    let groupData = this.props.groupData;
+    /*
     this._addUserstoGroup();
-    
-    this._getMembers();
     */
+    this._getMembers();
+
   }
   render(){
       let _this = this;
