@@ -40,6 +40,14 @@
 			"required": false,
 			"id": "eventDate",
 			"order": 4
+		},
+		"eventLocation": {
+			"name": "eventLocation",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "eventLocation",
+			"order": 5
 		}
 	}
 }
