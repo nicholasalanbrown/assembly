@@ -85,10 +85,11 @@ class Home extends React.Component{
             </TouchableOpacity>
             <TouchableOpacity onPress={() =>{
                 this.props.navigator.push({
-                  title: 'New Group',
+                  title: 'New Event',
                   component: createGroup,
                   passProps: {
                     loading: this.props.loading,
+                    uiBlocker: this.props.uiBlocker,
                     user: this.props.user
                   }
                 })
@@ -103,6 +104,7 @@ class Home extends React.Component{
                   component: myGroups,
                   passProps: {
                     loading: this.props.loading,
+                    uiBlocker: this.props.uiBlocker,
                     user: this.props.user
                   }
                 })
