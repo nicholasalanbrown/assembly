@@ -9,6 +9,7 @@ import Globals from './application/styles/globals';
 import Technologies from './application/technologies';
 import Config from './config';
 import Loading from './application/components/shared/loading';
+import UIBlocker from './application/components/shared/uiBlocker';
 import Modal from './application/components/shared/modal';
 import FBLogin from 'react-native-facebook-login';
 import faker from 'faker';
@@ -39,6 +40,7 @@ class Assembly extends React.Component{
     this.state = {
       loading: false,
       user: {},
+      uiBlocker: null,
       modal: false,
       modalProps: {title: "Technology Tags"},
       fakeData:[]
@@ -46,6 +48,9 @@ class Assembly extends React.Component{
   }
   _toggleLoading (bool) {
     this.setState({loading: bool});
+  }
+  _toggleBlocker (content) {
+    this.setState({uiBlocker: content});
   }
   _findUser (userId) {
     this._toggleLoading(true);
@@ -284,6 +289,9 @@ class Assembly extends React.Component{
         />
         {
           this.state.loading ? <Loading /> : null
+        }
+        {
+          this.state.uiBlocker ? <UIBlocker /> : null
         }
       {Object.keys(this.state.user).length == 0 ?
 
