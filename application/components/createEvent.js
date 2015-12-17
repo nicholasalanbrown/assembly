@@ -48,10 +48,12 @@ class createEvent extends React.Component {
             .then((data) => {
                 if (data.errors) {
                     this.props.loading(false);
+                    this.props.uiBlocker(null);
                     console.log(data.errors);
                 }
                 else {
                     this.props.loading(false);
+                    this.props.uiBlocker(null);
                     console.log(data);
                 }
             })
@@ -67,6 +69,7 @@ class createEvent extends React.Component {
     }
     _handleSubmit() {
         this.props.loading(true);
+        this.props.uiBlocker("Creating event...");
         this._createEvent();
     }
     _onDateChange(date) {

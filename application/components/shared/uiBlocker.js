@@ -21,10 +21,9 @@ class UIBlocker extends React.Component{
       return (
       <View style={styles.container}>
         <View style={styles.contentContainer}>
+          <Text style={styles.text}>{this.props.text}</Text>
+          <Spinner style={styles.spinner} isVisible={true} size={36} type='FadingCircle' color={Colors.brandPrimary}/>
         </View>
-          {/*
-          <Spinner style={styles.spinner} isVisible={true} size={50} type='FadingCircle' color='#ffffff'/>
-          */}
       </View>
       )
     }
@@ -46,12 +45,22 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     backgroundColor: 'rgba(255,255,255,1)',
+    flex: 1,
     minWidth: 300,
-    minHeight: 250
+    minHeight: 250,
+    maxWidth: 300,
+    maxHeight: 250,
+    position: 'relative',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  text: {
+    fontSize: 16,
+    color: Colors.bodyText,
+    paddingBottom: 30
   },
   spinner: {
-    opacity: 1,
-    color: '#ffffff'
+
   }
 });
 

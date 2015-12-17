@@ -75,6 +75,7 @@ class Home extends React.Component{
                   component: createEvent,
                   passProps: {
                     loading: this.props.loading,
+                    uiBlocker: this.props.uiBlocker,
                     user: this.props.user
                   }
                 })

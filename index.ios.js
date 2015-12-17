@@ -292,7 +292,7 @@ class Assembly extends React.Component{
           this.state.loading ? <Loading /> : null
         }
         {
-          this.state.uiBlocker ? <UIBlocker /> : null
+          this.state.uiBlocker ? <UIBlocker text={this.state.uiBlocker} /> : null
         }
       {Object.keys(this.state.user).length == 0 ?
 
