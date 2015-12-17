@@ -3,6 +3,8 @@ import Globals from '../styles/globals';
 import Config from '../../config';
 import Input from './shared/input';
 import Loading from './shared/loading';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+
 
 let {
     View,
@@ -81,6 +83,47 @@ class createEvent extends React.Component {
                       value={this.state.formData.eventName}
                       handleChange={this._handleChange}
                     />
+                  <GooglePlacesAutocomplete
+                    placeholder='Search'
+                    minLength={2} // minimum length of text to search
+                    autoFocus={false}
+                    fetchDetails={true}
+                    onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
+                      console.log(data);
+                      console.log(details);
+                    }}
+                    getDefaultValue={() => {
+                      return ''; // text input default value
+                    }}
+                    query={{
+                      // available options: https://developers.google.com/places/web-service/autocomplete
+                      key: Config.googlePlacesApiKey,
+                      language: 'en', // language of the results
+                      types: 'address', // default: 'geocode'
+                    }}
+                    styles={{
+                      description: {
+                        fontWeight: 'bold',
+                      },
+                      predefinedPlacesDescription: {
+                        color: '#1faadb',
+                      },
+                    }}
+
+                    currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
+                    currentLocationLabel="Current location"
+                    nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+                    GoogleReverseGeocodingQuery={{
+                      // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
+                    }}
+                    GooglePlacesSearchQuery={{
+                      // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
+                      rankby: 'distance',
+                      types: 'food',
+                    }}
+
+                    filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
+                  />
                     <Input
                       placeholder="this is a placeholder"
                       label="What's happening at the event?"
