@@ -13,16 +13,29 @@ let FBLoginManager = require('NativeModules').FBLoginManager;
 let {
   View,
   ScrollView,
+  MapView,
   Text,
   TouchableOpacity,
+  Dimensions,
   StyleSheet,
 } = React;
+
+let {
+  width: deviceWidth,
+  height: deviceHeight
+} = Dimensions.get('window');
 
 class Home extends React.Component{
   constructor(props){
     super(props);
     this._handlePress = this._handlePress.bind(this);
     this.state = {
+      mapRegion: {
+        latitude:   40.688816,
+        longitude: -73.988410,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01
+      },
     }
   }
   _handlePress () {
@@ -38,6 +51,11 @@ class Home extends React.Component{
     let _this = this;
       return (
         <ScrollView style={styles.container}>
+          <MapView
+            style={styles.map}
+            region={this.state.mapRegion}
+            annotations={[{latitude: this.state.mapRegion.latitude, longitude: this.state.mapRegion.longitude}]}
+          />
           <TouchableOpacity onPress={this._handlePress}>
             <Text>Logout</Text>
           </TouchableOpacity>
@@ -120,8 +138,12 @@ class Home extends React.Component{
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
+  map: {
+    height: 250,
+    width: deviceWidth
+  }
 });
 
 module.exports = Home;
