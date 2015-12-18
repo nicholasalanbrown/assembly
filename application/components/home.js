@@ -4,7 +4,6 @@ import createGroup from './groups/createGroup';
 import myGroups from './groups/myGroups';
 import UserProfile from './users/userProfile';
 import myProfile from './myProfile';
-import viewEvent from './viewEvent';
 import FBLogin from 'react-native-facebook-login';
 
 let NativeModules = require('react-native').NativeModules;

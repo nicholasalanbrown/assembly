@@ -135,7 +135,13 @@ class ViewGroup extends React.Component{
       });
       let events = this.state.eventData.map(function(event, index) {
         return (
-            <EventCell key={index} eventData={event} />
+            <EventCell 
+              key={index}
+              navigator={_this.props.navigator} 
+              eventData={event} 
+              loading={_this.props.loading}
+              user={_this.props.user}
+            />
         );
       });
       return (
