@@ -3,6 +3,7 @@ import Globals from '../../styles/globals';
 import Config from '../../../config';
 import ViewGroup from './viewGroup';
 import GroupCard from './groupCard';
+import _ from 'underscore';
 
 let {
   View,
@@ -17,11 +18,11 @@ class MyGroups extends React.Component{
     super(props);
     this._viewGroup = this._viewGroup.bind(this);
     this.state = {
-      data: []
+      organizerData: [],
+      memberData: []
     }
   }
-  componentDidMount () {
-    this.props.loading(true);
+  _getOrganizerGroups () {
     fetch(Config.apiBaseUrl+"/groups?createdBy="+this.props.user.userId, {
             method: "GET",
             headers: {
@@ -32,16 +33,42 @@ class MyGroups extends React.Component{
         .then((response) => response.json())
         .then((data) => {
             if (data.errors) {
-                this.props.loading(false);
                 console.log(data.errors);
             }
             else {
-                this.props.loading(false);
+
+                this.setState({organizerData: data})
+            }
+        })
+        .catch((error) => console.log(error))
+        .done();
+  }
+  _getMemberGroups () {
+    let memberGroups = this.props.user.memberGroups;
+    fetch(Config.apiBaseUrl+'/groups?{"id":{"$in":'+JSON.stringify(memberGroups)+'}}', {
+            method: "GET",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.errors) {
+                console.log(data.errors);
+            }
+            else {
                 this.setState({data: data})
             }
         })
         .catch((error) => console.log(error))
         .done();
+  }
+  componentWillMount () {
+    this.props.loading(true);
+    this._getOrganizerGroups();
+    this._getMemberGroups();
+    this.props.loading(false);
   }
   _viewGroup(groupData) {
     this.props.navigator.push({
@@ -56,16 +83,20 @@ class MyGroups extends React.Component{
   }
   render(){
       let _this = this;
-      let myGroups = this.state.data.map(function(group) {
+      let organizerGroups = this.state.organizerData.map(function(group) {
         return (
           <GroupCard groupData={group} viewGroup={_this._viewGroup} groupName={group.groupName} key={group.id} />
         );
       });
       return (
         <ScrollView style={styles.container}>
+          <Text style={Globals.heading}>Groups You Organize</Text>
+          <View style={Globals.twoColumnGridContainer}>
+            {organizerGroups}
+          </View>
           <Text style={Globals.heading}>Your Groups</Text>
           <View style={Globals.twoColumnGridContainer}>
-            {myGroups}
+
           </View>
         </ScrollView>
       )

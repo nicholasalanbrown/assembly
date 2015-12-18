@@ -1,12 +1,12 @@
 import React from 'react-native';
 import globals from '../styles/globals';
-import createEvent from './createEvent';
 import createGroup from './groups/createGroup';
 import myGroups from './groups/myGroups';
 import UserProfile from './users/userProfile';
 import myProfile from './myProfile';
 import viewEvent from './viewEvent';
 import FBLogin from 'react-native-facebook-login';
+
 let NativeModules = require('react-native').NativeModules;
 let FBLoginManager = require('NativeModules').FBLoginManager;
 
@@ -56,19 +56,6 @@ class Home extends React.Component{
             region={this.state.mapRegion}
             annotations={[{latitude: this.state.mapRegion.latitude, longitude: this.state.mapRegion.longitude}]}
           />
-          <TouchableOpacity onPress={this._handlePress}>
-            <Text>Logout</Text>
-          </TouchableOpacity>
-            <TouchableOpacity onPress={() =>{
-                this.props.navigator.push({
-                  title: 'Home',
-                  component: Home
-                })
-              }
-            }
-            style={globals.button}>
-              <Text style={globals.buttonText}>Home</Text>
-            </TouchableOpacity>
             <TouchableOpacity onPress={() =>{
                 this.props.navigator.push({
                   title: 'New Event',
@@ -114,26 +101,9 @@ class Home extends React.Component{
             style={globals.button}>
               <Text style={globals.buttonText}>My Groups</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() =>{
-                this.props.navigator.push({
-                  title: 'User Profile',
-                  component: UserProfile
-                })
-              }
-            }
-            style={globals.button}>
-              <Text style={globals.buttonText}>User Profile</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() =>{
-                this.props.navigator.push({
-                  title: 'View Event',
-                  component: viewEvent
-                })
-              }
-            }
-            style={globals.button}>
-              <Text style={globals.buttonText}>View Event</Text>
-            </TouchableOpacity>
+          <TouchableOpacity onPress={this._handlePress}>
+            <Text>Logout</Text>
+          </TouchableOpacity>
         </ScrollView>
       )
     }

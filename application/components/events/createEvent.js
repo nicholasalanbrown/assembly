@@ -1,8 +1,8 @@
 import React from 'react-native';
-import Globals from '../styles/globals';
-import Config from '../../config';
-import Input from './shared/input';
-import Loading from './shared/loading';
+import Globals from '../../styles/globals';
+import Config from '../../../config';
+import Input from '../shared/input';
+import Loading from '../shared/loading';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 
 
@@ -23,7 +23,6 @@ class createEvent extends React.Component {
         this._onDateChange = this._onDateChange.bind(this);
         this.state = {
             data: null,
-            groupId: "12345",
             formData: {
                 eventName: "",
                 eventDescription: "",
@@ -35,7 +34,7 @@ class createEvent extends React.Component {
     _createEvent() {
         this.props.loading(true);
         let requestData = this.state.formData;
-        Object.assign(requestData, {groupId: this.state.groupId, createdBy: this.props.user.userId});
+        Object.assign(requestData, {groupId: this.props.groupId, createdBy: this.props.user.userId});
         fetch(Config.apiBaseUrl+"/events", {
                 method: "POST",
                 headers: {

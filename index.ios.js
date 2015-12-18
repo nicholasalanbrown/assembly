@@ -89,8 +89,8 @@ class Assembly extends React.Component{
     this._toggleLoading(true);
     let user = this.state.user;
     user.username = "facebook_"+user.userId;
-    user.password = "password"
-;    fetch("http://localhost:2403/users", {
+    user.password = "password";
+    fetch("http://localhost:2403/users", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

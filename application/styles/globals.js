@@ -24,8 +24,13 @@ let globals = StyleSheet.create({
 	},
 	heading: {
 		color: Colors.bodyText,
-		fontSize: 24,
+		fontSize: 22,
 		padding: 15
+	},
+	bodyText: {
+		color: Colors.bodyText,
+		fontSize: 16,
+		paddingHorizontal: 15
 	},
 	button: {
 		height: 60,

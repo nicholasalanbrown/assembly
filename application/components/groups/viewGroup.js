@@ -2,6 +2,7 @@ import React from 'react-native';
 import Globals from '../../styles/globals';
 import Hero from '../shared/hero';
 import UserCell from '../shared/userCell';
+import createEvent from '../events/createEvent';
 import UserProfile from '../users/userProfile';
 import _ from 'underscore';
 
@@ -54,7 +55,6 @@ class ViewGroup extends React.Component{
                               console.log(data.errors);
                           }
                           else {
-                              console.log(data);
                           }
                       })
                       .catch((error) => console.log(error))
@@ -69,6 +69,7 @@ class ViewGroup extends React.Component{
   _getMembers() {
     this.props.loading(true);
     let api = 'http://localhost:2403/users?{"userId":{"$in":'+JSON.stringify(this.props.groupData.groupMembers)+'}}';
+    console.log(api);
     fetch(api, {
             method: "GET"
         })
@@ -79,6 +80,7 @@ class ViewGroup extends React.Component{
             }
             else {
                 this.setState({memberData: data})
+                console.log(data);
             }
         })
         .catch((error) => console.log(error))
@@ -88,13 +90,12 @@ class ViewGroup extends React.Component{
   componentWillMount() {
 
     let groupData = this.props.groupData;
-    /*
     this._addUserstoGroup();
-    */
     this._getMembers();
 
   }
   render(){
+      console.log(this.props);
       let _this = this;
       let members = this.state.memberData.map(function(member, index) {
         return (
@@ -115,6 +116,28 @@ class ViewGroup extends React.Component{
       return (
         <ScrollView style={styles.container}>
           <Hero title={this.props.groupData.groupName} layout="normalLayout" />
+            { this.props.groupData.createdBy === this.props.user.userId ?
+            <TouchableOpacity onPress={() =>{
+                this.props.navigator.push({
+                  title: 'New Event',
+                  component: createEvent,
+                  passProps: {
+                    loading: this.props.loading,
+                    uiBlocker: this.props.uiBlocker,
+                    user: this.props.user,
+                    groupId: this.props.groupData.groupId
+                  }
+                })
+              }
+            }
+            style={Globals.button}>
+              <Text style={Globals.buttonText}>Create a New Event</Text>
+            </TouchableOpacity>
+            :
+            null
+            }
+          <Text style={Globals.heading}>About this Group</Text>
+          <Text style={Globals.bodyText}>{this.props.groupData.groupDescription}</Text>
           <Text style={Globals.heading}>{this.state.memberData.length} Members</Text>
           {members}
         </ScrollView>
