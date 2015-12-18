@@ -1,5 +1,6 @@
 import React from 'react-native';
 import Globals from '../../styles/globals';
+import Config from '../../../config';
 import Hero from '../shared/hero';
 import UserCell from '../shared/userCell';
 import createEvent from '../events/createEvent';
@@ -24,7 +25,6 @@ class ViewGroup extends React.Component{
   }
   _addUserstoGroup() {
     let groupData = this.props.groupData;
-    this.props.loading(true);
     fetch('http://localhost:2403/users?{"$limit": 10}', {
             method: "GET",
             headers: {
@@ -64,13 +64,9 @@ class ViewGroup extends React.Component{
         })
         .catch((error) => console.log(error))
         .done();
-        this.props.loading(false);
   }
-  _getMembers() {
-    this.props.loading(true);
-    let api = 'http://localhost:2403/users?{"userId":{"$in":'+JSON.stringify(this.props.groupData.groupMembers)+'}}';
-    console.log(api);
-    fetch(api, {
+  _getEvents() {
+    fetch(Config.apiBaseUrl+'/events?{"groupId":'+JSON.stringify(this.props.groupData.id)+'}', {
             method: "GET"
         })
         .then((response) => response.json())
@@ -85,17 +81,36 @@ class ViewGroup extends React.Component{
         })
         .catch((error) => console.log(error))
         .done();
+  }
+  _getMembers() {
+    this.props.loading(true);
+    let api = 'http://localhost:2403/users?{"userId":{"$in":'+JSON.stringify(this.props.groupData.groupMembers)+'}}';
+    console.log(api)
+    fetch(api, {
+            method: "GET"
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.errors) {
+                console.log(data.errors);
+            }
+            else {
+                this.setState({memberData: data})
+            }
+        })
+        .catch((error) => console.log(error))
+        .done();
     this.props.loading(false);
   }
   componentWillMount() {
-
+    this.props.loading(true);
     let groupData = this.props.groupData;
     this._addUserstoGroup();
     this._getMembers();
-
+    this._getEvents();
+    this.props.loading(false);
   }
   render(){
-      console.log(this.props);
       let _this = this;
       let members = this.state.memberData.map(function(member, index) {
         return (
