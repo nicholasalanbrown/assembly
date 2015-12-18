@@ -77,6 +77,7 @@ class MyGroups extends React.Component{
       passProps: {
         groupData: groupData,
         loading: this.props.loading,
+        uiBlocker: this.props.uiBlocker,
         user: this.props.user
       }
     })

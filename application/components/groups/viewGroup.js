@@ -2,6 +2,7 @@ import React from 'react-native';
 import Globals from '../../styles/globals';
 import Config from '../../../config';
 import Hero from '../shared/hero';
+import EventCell from '../shared/eventCell';
 import UserCell from '../shared/userCell';
 import createEvent from '../events/createEvent';
 import UserProfile from '../users/userProfile';
@@ -20,10 +21,12 @@ class ViewGroup extends React.Component{
     super(props);
     this._addUserstoGroup = this._addUserstoGroup.bind(this);
     this.state = {
-      memberData: []
+      memberData: [],
+      eventData: []
     }
   }
   _addUserstoGroup() {
+    let _this = this;
     let groupData = this.props.groupData;
     fetch('http://localhost:2403/users?{"$limit": 10}', {
             method: "GET",
@@ -55,6 +58,7 @@ class ViewGroup extends React.Component{
                               console.log(data.errors);
                           }
                           else {
+                            _this._addUserstoGroup();
                           }
                       })
                       .catch((error) => console.log(error))
@@ -75,17 +79,16 @@ class ViewGroup extends React.Component{
                 console.log(data.errors);
             }
             else {
-                this.setState({memberData: data})
-                console.log(data);
+                this.setState({eventData: data})
             }
         })
         .catch((error) => console.log(error))
         .done();
   }
   _getMembers() {
+    let _this = this;
     this.props.loading(true);
     let api = 'http://localhost:2403/users?{"userId":{"$in":'+JSON.stringify(this.props.groupData.groupMembers)+'}}';
-    console.log(api)
     fetch(api, {
             method: "GET"
         })
@@ -95,17 +98,19 @@ class ViewGroup extends React.Component{
                 console.log(data.errors);
             }
             else {
-                this.setState({memberData: data})
+                if (data.length === 0) {
+                      _this._addUserstoGroup();
+                }
+                else {
+                  this.setState({memberData: data})
+                }
             }
         })
         .catch((error) => console.log(error))
         .done();
-    this.props.loading(false);
   }
   componentWillMount() {
     this.props.loading(true);
-    let groupData = this.props.groupData;
-    this._addUserstoGroup();
     this._getMembers();
     this._getEvents();
     this.props.loading(false);
@@ -128,6 +133,11 @@ class ViewGroup extends React.Component{
           </TouchableOpacity>
         );
       });
+      let events = this.state.eventData.map(function(event, index) {
+        return (
+            <EventCell key={index} eventData={event} />
+        );
+      });
       return (
         <ScrollView style={styles.container}>
           <Hero title={this.props.groupData.groupName} layout="normalLayout" />
@@ -140,7 +150,7 @@ class ViewGroup extends React.Component{
                     loading: this.props.loading,
                     uiBlocker: this.props.uiBlocker,
                     user: this.props.user,
-                    groupId: this.props.groupData.groupId
+                    groupId: this.props.groupData.id
                   }
                 })
               }
@@ -153,6 +163,8 @@ class ViewGroup extends React.Component{
             }
           <Text style={Globals.heading}>About this Group</Text>
           <Text style={Globals.bodyText}>{this.props.groupData.groupDescription}</Text>
+          <Text style={Globals.heading}>Events</Text>
+          {events}
           <Text style={Globals.heading}>{this.state.memberData.length} Members</Text>
           {members}
         </ScrollView>
