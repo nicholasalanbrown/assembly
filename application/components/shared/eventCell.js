@@ -34,7 +34,7 @@ class EventCell extends React.Component{
       }
     });
     return (
-        <TouchableOpacity onPress={() => 
+        <TouchableOpacity onPress={() =>
           _this.props.navigator.push({
             title: 'View Event',
             component: ViewEvent,

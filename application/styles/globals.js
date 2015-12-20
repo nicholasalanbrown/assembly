@@ -19,8 +19,7 @@ let globals = StyleSheet.create({
 	},
 	inactiveContainer: {
 		flex: 1,
-		backgroundColor: Colors.inactive,
-		justifyContent: 'center'
+		backgroundColor: Colors.inactive
 	},
 	heading: {
 		color: Colors.bodyText,
@@ -71,6 +70,10 @@ let globals = StyleSheet.create({
 		fontSize: 16,
 		paddingHorizontal: 12,
 		paddingBottom: 8
+	},
+	map: {
+		height: 250,
+		width: deviceWidth
 	}
 })
 

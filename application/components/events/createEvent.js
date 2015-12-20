@@ -115,8 +115,9 @@ class createEvent extends React.Component {
                         fetchDetails={true}
                         onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
                           console.log(data);
-                          this._handleChange('eventLocation', data);
-                          console.log(details);
+                          let object = Object.assign(data, details);
+                          this._handleChange('eventLocation', object);
+                          console.log(object);
                         }}
                         getDefaultValue={() => {
                           return ''; // text input default value
@@ -176,6 +177,7 @@ const styles = StyleSheet.create({
         paddingTop: 60
     },
     button: {
+        marginTop: 50,
         alignSelf: 'flex-end'
     }
 });

@@ -1,5 +1,5 @@
 import React from 'react-native';
-import globals from '../styles/globals';
+import Globals from '../styles/globals';
 import createGroup from './groups/createGroup';
 import myGroups from './groups/myGroups';
 import UserProfile from './users/userProfile';
@@ -51,7 +51,7 @@ class Home extends React.Component{
       return (
         <ScrollView style={styles.container}>
           <MapView
-            style={styles.map}
+            style={Globals.map}
             region={this.state.mapRegion}
             annotations={[{latitude: this.state.mapRegion.latitude, longitude: this.state.mapRegion.longitude}]}
           />
@@ -67,8 +67,8 @@ class Home extends React.Component{
                 })
               }
             }
-            style={globals.button}>
-              <Text style={globals.buttonText}>New Event</Text>
+            style={Globals.button}>
+              <Text style={Globals.buttonText}>New Event</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() =>{
                 this.props.navigator.push({
@@ -82,8 +82,8 @@ class Home extends React.Component{
                 })
               }
             }
-            style={globals.button}>
-              <Text style={globals.buttonText}>New Group</Text>
+            style={Globals.button}>
+              <Text style={Globals.buttonText}>New Group</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() =>{
                 this.props.navigator.push({
@@ -97,8 +97,8 @@ class Home extends React.Component{
                 })
               }
             }
-            style={globals.button}>
-              <Text style={globals.buttonText}>My Groups</Text>
+            style={Globals.button}>
+              <Text style={Globals.buttonText}>My Groups</Text>
             </TouchableOpacity>
           <TouchableOpacity onPress={this._handlePress}>
             <Text>Logout</Text>
@@ -111,10 +111,6 @@ class Home extends React.Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1
-  },
-  map: {
-    height: 250,
-    width: deviceWidth
   }
 });
 
