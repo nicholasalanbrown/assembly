@@ -10,10 +10,17 @@ let FBLoginManager = require('NativeModules').FBLoginManager;
 let {
   View,
   ScrollView,
+  Image,
+  Dimensions,
   Text,
   TouchableOpacity,
   StyleSheet,
 } = React;
+
+let {
+  width: deviceWidth,
+  height: deviceHeight
+} = Dimensions.get('window');
 
 class Welcome extends React.Component{
   constructor(props){
@@ -35,7 +42,8 @@ class Welcome extends React.Component{
     let _this = this;
       return (
         <View style={styles.container}>
-          <View style={styles.topContainer}>
+          <View style={styles.imageContainer}>
+            <Image style={styles.image} source={require('../images/welcome.png')} />
           </View>
           <TouchableOpacity style={styles.loginButton} onPress={this._handlePress}>
             <Icon style={styles.icon} name="social-facebook" size={36} color={Colors.facebookBlue} />
@@ -55,12 +63,23 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0
   },
-  topContainer: {
-    flex: 1,
-    backgroundColor: Colors.brandPrimary
+  imageContainer: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0
+  },
+  image: {
+    height: deviceHeight,
+    width: deviceWidth
   },
   loginButton: {
     height: 80,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
     flexDirection: 'row',
     backgroundColor: Colors.inactive,
     justifyContent: 'center',
