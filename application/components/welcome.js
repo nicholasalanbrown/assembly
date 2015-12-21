@@ -45,6 +45,10 @@ class Welcome extends React.Component{
           <View style={styles.imageContainer}>
             <Image style={styles.image} source={require('../images/welcome.png')} />
           </View>
+          <View style={styles.content}>
+            <Text style={styles.title}>assembly</Text>
+            <Text style={styles.subTitle}>Where Developers Connect</Text>
+          </View>
           <TouchableOpacity style={styles.loginButton} onPress={this._handlePress}>
             <Icon style={styles.icon} name="social-facebook" size={36} color={Colors.facebookBlue} />
             <Text style={styles.loginButtonText}>Login with Facebook</Text>
@@ -73,6 +77,23 @@ const styles = StyleSheet.create({
   image: {
     height: deviceHeight,
     width: deviceWidth
+  },
+  content: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 80
+  },
+  title: {
+    color: '#ffffff',
+    fontSize: 28,
+    fontWeight: '700',
+    paddingBottom: 24
+  },
+  subTitle: {
+    color: '#ffffff',
+    fontSize: 20
   },
   loginButton: {
     height: 80,
