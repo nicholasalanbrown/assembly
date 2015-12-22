@@ -48,6 +48,14 @@
 			"required": false,
 			"id": "eventLocation",
 			"order": 5
+		},
+		"going": {
+			"name": "going",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "going",
+			"order": 6
 		}
 	}
 }
