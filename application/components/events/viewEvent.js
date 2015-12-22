@@ -2,8 +2,10 @@ import React from 'react-native';
 import Colors from '../../styles/colors';
 import Globals from '../../styles/globals';
 import Config from '../../../config';
+import UserProfile from '../users/userProfile';
 import Input from '../shared/input';
 import EventCell from '../shared/eventCell';
+import UserCell from '../shared/userCell';
 import Cell from '../shared/cell';
 import Loading from '../shared/loading';
 
@@ -29,7 +31,8 @@ class viewEvent extends React.Component {
                 latitudeDelta: 0.01,
                 longitudeDelta: 0.01
             },
-            going: this.props.eventData.going.indexOf(this.props.user.userId) !== -1 ? true : false
+            going: this.props.eventData.going.indexOf(this.props.user.userId) !== -1 ? true : false,
+            attendeeData: []
         }
     }
     _toggleGoing () {
@@ -83,9 +86,46 @@ class viewEvent extends React.Component {
         .catch((error) => console.log(error))
         .done();
     }
+    _getAttendees() {
+    let _this = this;
+    let api = Config.apiBaseUrl+'/users?{"userId":{"$in":'+JSON.stringify(this.props.eventData.going)+'}}';
+    fetch(api, {
+            method: "GET"
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.errors) {
+                console.log(data.errors);
+            }
+            else {
+                console.log(data);
+                  this.setState({attendeeData: data})
+            }
+        })
+        .catch((error) => console.log(error))
+        .done();
+    }
+    componentWillMount () {
+        this._getAttendees();
+    }
     render() {
-        console.log(this.props);
-        console.log(this.props.eventData.going.indexOf(this.props.user.userId));
+        let _this = this;
+        let attendees = this.state.attendeeData.map(function(attendee, index) {
+        return (
+          <TouchableOpacity key={index} onPress={() =>
+            _this.props.navigator.push({
+              title: "User Profile",
+              component: UserProfile,
+              passProps: {
+                otherUser: attendee,
+                currentUser: _this.props.user
+              }
+            })
+          }>
+            <UserCell key={index} userData={attendee} />
+          </TouchableOpacity>
+        );
+        });
         return (
         <View style={{flex : 1}}>
             <View style={Globals.inactiveContainer}>
@@ -103,6 +143,8 @@ class viewEvent extends React.Component {
                         <Text style={this.state.going ? styles.unselected : styles.selected}>No</Text>
                     </TouchableOpacity>
                 </View>
+                <Text style={Globals.heading}>{this.props.eventData.going.length} Going</Text>
+                {attendees}
             </View>
         </View>
         )

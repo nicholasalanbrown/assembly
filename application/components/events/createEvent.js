@@ -27,7 +27,8 @@ class createEvent extends React.Component {
                 eventName: "",
                 eventDescription: "",
                 eventDate: new Date(),
-                eventLocation: {}
+                eventLocation: {},
+                going: []
             }
         }
     }
