@@ -8,6 +8,7 @@ import EventCell from '../shared/eventCell';
 import UserCell from '../shared/userCell';
 import Cell from '../shared/cell';
 import Loading from '../shared/loading';
+import moment from 'moment';
 
 let {
     View,
@@ -126,6 +127,22 @@ class viewEvent extends React.Component {
           </TouchableOpacity>
         );
         });
+        let location = this.props.eventData.eventLocation.terms.map(function(term,index) {
+          switch(index) {
+              case 0:
+                  return term.value+' ';
+                  break;
+              case 1:
+                  return term.value + ', ';
+                  break;
+              case 2:
+                  return term.value + ', ';
+                  break;
+              case 3:
+                  return term.value;
+                  break;
+          }
+        });
         return (
         <View style={{flex : 1}}>
             <View style={Globals.inactiveContainer}>
@@ -134,6 +151,11 @@ class viewEvent extends React.Component {
                 region={this.state.mapRegion}
                 annotations={[{latitude: this.state.mapRegion.latitude, longitude: this.state.mapRegion.longitude}]}
             />
+            <View style={styles.eventMeta}>
+                <Text style={styles.title}>{this.props.eventData.eventName}</Text>
+                <Text style={styles.date}>{moment(this.props.eventData.eventDate).format("dddd, MMMM Do, h:mm A")}</Text>
+                <Text>{location}</Text>
+            </View>
                 <View style={styles.cell}>
                     <Text style={styles.attending}>Are you going?</Text>
                     <TouchableOpacity onPress={this.state.going === false ? this._toggleGoing : null}>
@@ -165,6 +187,15 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderBottomWidth: 1,
         borderColor: Colors.inactive
+    },
+    eventMeta: {
+        backgroundColor: '#ffffff',
+        padding: 24
+    },
+    title: {
+        fontWeight: '700',
+        fontSize: 20,
+        paddingBottom: 8
     },
     attending: {
         fontSize: 20,
