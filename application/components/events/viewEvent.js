@@ -29,7 +29,7 @@ class viewEvent extends React.Component {
                 latitudeDelta: 0.01,
                 longitudeDelta: 0.01
             },
-            going: false
+            going: this.props.eventData.going.indexOf(this.props.user.userId) !== -1 ? true : false
         }
     }
     _toggleGoing () {
@@ -85,6 +85,7 @@ class viewEvent extends React.Component {
     }
     render() {
         console.log(this.props);
+        console.log(this.props.eventData.going.indexOf(this.props.user.userId));
         return (
         <View style={{flex : 1}}>
             <View style={Globals.inactiveContainer}>
