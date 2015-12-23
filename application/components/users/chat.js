@@ -29,7 +29,8 @@ class Chat extends React.Component{
         sender: this.props.currentUser,
         recipient: this.props.otherUser,
         timestamp: new Date(),
-        text: this.state.text
+        text: this.state.text,
+        recipientRead: false
       }
       fetch(Config.apiBaseUrl+"/messages", {
               method: "POST",
@@ -51,8 +52,55 @@ class Chat extends React.Component{
           .catch((error) => console.log(error))
           .done();
   }
+  _markMessagesRead(messages) {
+      _.each(messages, function (message) {
+      fetch(Config.apiBaseUrl+"/messages/"+message.id, {
+              method: "PUT",
+              headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({recipientRead: true})
+          })
+          .then((response) => response.json())
+          .then((data) => {
+              if (data.errors) {
+                  console.log(data.errors);
+              }
+              else {
+                  console.log(data);
+              }
+          })
+          .catch((error) => console.log(error))
+          .done();
+      })
+  }
+  _getUnreadMessages() {
+      let sender = this.props.currentUser;
+      let recipient = this.props.otherUser;
+      fetch(Config.apiBaseUrl+"/messages?sender="+sender+"&recipient="+recipient+"&recipientRead=false", {
+              method: "GET",
+              headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+              },
+          })
+          .then((response) => response.json())
+          .then((data) => {
+              if (data.errors) {
+                  console.log(data.errors);
+              }
+              else {
+                  this._markMessagesRead(data);
+                  console.log(data);
+              }
+          })
+          .catch((error) => console.log(error))
+          .done();
+  }
   componentWillMount () {
     this._getMessages();
+    this._getUnreadMessages();
   }
   _getMessages() {
       let sender = this.props.currentUser;

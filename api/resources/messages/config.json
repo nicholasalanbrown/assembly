@@ -32,6 +32,14 @@
 			"required": false,
 			"id": "text",
 			"order": 3
+		},
+		"recipientRead": {
+			"name": "recipientRead",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "recipientRead",
+			"order": 4
 		}
 	}
 }
