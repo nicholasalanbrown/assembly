@@ -3,6 +3,7 @@ import Globals from '../styles/globals';
 import createGroup from './groups/createGroup';
 import myGroups from './groups/myGroups';
 import UserProfile from './users/userProfile';
+import Messages from './users/messages';
 import myProfile from './myProfile';
 import FBLogin from 'react-native-facebook-login';
 
@@ -99,6 +100,21 @@ class Home extends React.Component{
             }
             style={Globals.button}>
               <Text style={Globals.buttonText}>My Groups</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() =>{
+                this.props.navigator.push({
+                  title: 'Messages',
+                  component: Messages,
+                  passProps: {
+                    loading: this.props.loading,
+                    uiBlocker: this.props.uiBlocker,
+                    user: this.props.user
+                  }
+                })
+              }
+            }
+            style={Globals.button}>
+              <Text style={Globals.buttonText}>Messages</Text>
             </TouchableOpacity>
           <TouchableOpacity onPress={this._handlePress}>
             <Text>Logout</Text>

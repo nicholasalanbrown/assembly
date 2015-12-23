@@ -46,6 +46,7 @@ class Welcome extends React.Component{
             <Image style={styles.image} source={require('../images/welcome.png')} />
           </View>
           <View style={styles.content}>
+            <Image style={styles.logo} source={require('../images/logo.png')} />
             <Text style={styles.title}>assembly</Text>
             <Text style={styles.subTitle}>Where Developers Connect</Text>
           </View>
@@ -77,6 +78,10 @@ const styles = StyleSheet.create({
   image: {
     height: deviceHeight,
     width: deviceWidth
+  },
+  logo: {
+    height: 90,
+    width: 90
   },
   content: {
     flex: 1,
