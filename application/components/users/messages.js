@@ -2,7 +2,7 @@ import React from 'react-native';
 import Globals from '../../styles/globals';
 import Config from '../../../config';
 import Colors from '../../styles/colors';
-import Avatar from '../shared/avatar';
+import UserCell from '../shared/userCell';
 import _ from 'underscore';
 
 let {
@@ -19,6 +19,7 @@ class Messages extends React.Component{
     super(props);
     this._getMessages = this._getMessages.bind(this);
     this.state = {
+      users: [],
       messages: []
     }
   }
@@ -38,6 +39,31 @@ class Messages extends React.Component{
               }
               else {
                   this.setState({messages: data})
+                  this._getUsers();
+                  console.log(data);
+              }
+          })
+          .catch((error) => console.log(error))
+          .done();
+  }
+  _getUsers() {
+      let recipients = _.pluck(this.state.messages, 'recipient');
+      let senders = _.pluck(this.state.messages, 'sender');
+      let usersFromMessages = _.union(recipients, senders);
+      fetch(Config.apiBaseUrl+'/users?{"userId":{"$in":'+JSON.stringify(usersFromMessages)+'}}', {
+              method: "GET",
+              headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+              },
+          })
+          .then((response) => response.json())
+          .then((data) => {
+              if (data.errors) {
+                  console.log(data.errors);
+              }
+              else {
+                  this.setState({users: data})
                   console.log(data);
               }
           })
@@ -45,19 +71,33 @@ class Messages extends React.Component{
           .done();
   }
   componentWillMount () {
+    this.props.loading(true);
     this._getMessages();
+    this.props.loading(false);
   }
   render(){
+    if (this.state.users.length > 0) {
+      let user = _.sample(this.state.users);
+      let message = _.sample(this.state.messages);
       return (
-        <View style={styles.container}>
-        </View>
-      )
+          <View style={styles.container}>
+            <UserCell userData={user} tex={message.text} />
+          </View>
+        )
+    }
+    else {
+      return (
+          <View style={styles.container}>
+          </View>
+        )
+    }
     }
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center'
   },
   scrollView: {
     flex: 1,

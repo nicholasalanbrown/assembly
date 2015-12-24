@@ -14,10 +14,12 @@ let {
 
 class UserCell extends React.Component{
   render () {
+    console.log(this.props);
     return (
         <View style={styles.cell}>
           <Avatar source={this.props.userData.profile.picture} />
-          <Text style={styles.text}>{this.props.userData.profile.name}</Text>
+          <Text style={styles.name}>{this.props.userData.profile.name}</Text>
+          <Text style={styles.text}>{this.props.text}</Text>
         </View>
     )
   }
@@ -38,8 +40,13 @@ var styles = StyleSheet.create({
     fontSize: 16,
     color: Colors.placeholderColor
   },
-  text: {
+  name: {
     fontSize: 16,
+    paddingLeft: 24,
+    color: Colors.bodyText,
+  },
+  text: {
+    fontSize: 14,
     paddingLeft: 24,
     color: Colors.bodyText,
   }
