@@ -1,27 +1,22 @@
 import faker from 'faker';
 import _ from 'underscore';
 
-let seedGroups = () => {
-  let user = {
-    id: '123abc',
-    username: 'thomasagoldenberg@example.com',
-    profile: {
-      interests: ['React', 'Meteor'],
-    }
-  }
+let seedGroups = (user) => {
+  // console.log('GROUP USER', user);
   let interest = _.sample(user.profile.interests)
   let endWord = _.sample(['Meet', 'Lunch', 'Enthusiasts'])
-  let userId = user['id']
+  let userId = user.profile.facebookId
   let options = {
     name: `${interest} ${endWord}`,
     description: faker.fake('{{lorem.paragraph}}'),
     members: {},
     location: {
-      lat: 23.0,
-      lng: 24.0,
-      city: 'West Haven',
-      state: 'CT',
-      country: 'United States'
+      lat: faker.fake('{{address.latitude}}'),
+      lng: faker.fake('{{address.longitude}}'),
+      city: faker.fake('{{address.city}}'),
+      state: faker.fake('{{address.state}}'),
+      country: faker.fake('{{address.country}}'),
+      zipcode: faker.fake('{{address.zipCode}}')
     },
     createdAt: new Date().toLocaleDateString()
   }
