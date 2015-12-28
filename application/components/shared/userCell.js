@@ -18,8 +18,10 @@ class UserCell extends React.Component{
     return (
         <View style={styles.cell}>
           <Avatar source={this.props.userData.profile.picture} />
-          <Text style={styles.name}>{this.props.userData.profile.name}</Text>
-          <Text style={styles.text}>{this.props.text}</Text>
+          <View style={styles.content}>
+            <Text style={styles.name}>{this.props.userData.profile.name}</Text>
+            <Text style={styles.text}>{this.props.text}</Text>
+          </View>
         </View>
     )
   }
@@ -35,6 +37,9 @@ var styles = StyleSheet.create({
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: Colors.inactive
+  },
+  content: {
+    flex: 1
   },
   placeholder: {
     fontSize: 16,

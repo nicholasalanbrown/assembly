@@ -77,11 +77,20 @@ class Messages extends React.Component{
   }
   render(){
     if (this.state.users.length > 0) {
-      let user = _.sample(this.state.users);
-      let message = _.sample(this.state.messages);
+      let _this = this;
+      let messages = this.state.messages.map(function(message, index) {
+        return (
+            <UserCell key={index} userData={
+              _.find(_this.state.users, function(user) {
+                return message.sender === user.userId;
+              })
+            }
+            text={message.text}/>
+        );
+      });
       return (
           <View style={styles.container}>
-            <UserCell userData={user} tex={message.text} />
+            {messages}
           </View>
         )
     }
