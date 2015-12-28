@@ -1,37 +1,61 @@
 {
 	"type": "Collection",
 	"properties": {
-		"groupName": {
-			"name": "groupName",
+		"name": {
+			"name": "name",
 			"type": "string",
 			"typeLabel": "string",
 			"required": false,
-			"id": "groupName",
+			"id": "name",
 			"order": 0
 		},
-		"createdBy": {
-			"name": "createdBy",
+		"description": {
+			"name": "description",
 			"type": "string",
 			"typeLabel": "string",
 			"required": false,
-			"id": "createdBy",
+			"id": "description",
 			"order": 1
 		},
-		"groupDescription": {
-			"name": "groupDescription",
+		"members": {
+			"name": "members",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "members",
+			"order": 2
+		},
+		"createdAt": {
+			"name": "createdAt",
 			"type": "string",
 			"typeLabel": "string",
 			"required": false,
-			"id": "groupDescription",
-			"order": 2
-		},
-		"groupMembers": {
-			"name": "groupMembers",
-			"type": "array",
-			"typeLabel": "array",
-			"required": false,
-			"id": "groupMembers",
+			"id": "createdAt",
 			"order": 3
+		},
+		"location": {
+			"name": "location",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "location",
+			"order": 4
+		},
+		"imageUrl": {
+			"name": "imageUrl",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "imageUrl",
+			"order": 5
+		},
+		"deleted": {
+			"name": "deleted",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "deleted",
+			"order": 6
 		}
 	}
 }

@@ -13,6 +13,8 @@ import UIBlocker from './application/components/shared/uiBlocker';
 import Modal from './application/components/shared/modal';
 import FBLogin from 'react-native-facebook-login';
 import faker from 'faker';
+import seedUsers from './application/utilities/seed_users';
+import seedGroups from './application/utilities/seed_groups';
 import _ from 'underscore';
 
 let {
@@ -65,8 +67,8 @@ class Assembly extends React.Component{
         .then((response) => response.json())
         .then((data) => {
             if (data.errors) {
-                this._toggleLoading(false);
-                console.log(data.errors);
+              this._toggleLoading(false);
+              console.log(data.errors);
             }
             else if (data.length > 0) {
                 this._toggleLoading(false);
@@ -117,24 +119,24 @@ class Assembly extends React.Component{
     let user = this.state.user;
     let api = "https://graph.facebook.com/me?fields=id,name,email&access_token="+user.token;
     fetch(api, {
-            method: "GET"
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.errors) {
-                this._toggleLoading(false);
-                console.log(data.errors);
-            }
-            else {
-                data.picture = "https://graph.facebook.com/"+user.userId+"/picture?type=large";
-                user.profile = data;
-                this.setState({user: user})
-                this._setUser(user);
-                this._updateUser(id);
-            }
-        })
-        .catch((error) => console.log(error))
-        .done();
+      method: "GET"
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.errors) {
+          this._toggleLoading(false);
+          console.log(data.errors);
+      }
+      else {
+          data.picture = "https://graph.facebook.com/"+user.userId+"/picture?type=large";
+          user.profile = data;
+          this.setState({user: user})
+          this._setUser(user);
+          this._updateUser(id);
+      }
+    })
+    .catch((error) => console.log(error))
+    .done();
   }
   _updateUser(id) {
     this._toggleLoading(true);
@@ -197,69 +199,7 @@ class Assembly extends React.Component{
           console.log("loginnotfound");
         this.setState({user: {}})
     });
-/*
-      var params = JSON.stringify({'userId':'hello'});
-      fetch('http://localhost:2403/users?{"id": {"$ne": 10}}', {
-            method: "DELETE",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.errors) {
-                console.log(data.errors);
-            }
-            else {
-              console.log(data);
-            }
-        })
-        .catch((error) => console.log(error))
-        .done();
-
-      let fakeData = []
-      _.each(_.range(100), function(){
-        var userId = faker.random.uuid();
-        var username = "facebook_"+userId;
-        var email = faker.internet.email();
-        var name = faker.name.findName();
-        var picture = faker.image.avatar();
-        var interestNumber = _.sample([1,2,3])
-        var interests = _.sample(Technologies, interestNumber);
-        var newUser = {
-          username: username,
-          userId: userId,
-          password: "password",
-          profile: {
-            id: userId,
-            name: name,
-            email: email,
-            picture: picture,
-            interests: interests
-          }
-        }
-      let user = newUser;
-      fetch("http://localhost:2403/users", {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(user)
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.errors) {
-                console.log(data.errors);
-            }
-            else {
-            }
-        })
-        .catch((error) => console.log(error))
-        .done();
-      })
-*/
+    // seedUsers(); // seed database
   }
   render() {
     StatusBarIOS.setStyle('light-content');

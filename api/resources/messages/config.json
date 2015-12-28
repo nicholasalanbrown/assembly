@@ -1,20 +1,20 @@
 {
 	"type": "Collection",
 	"properties": {
-		"sender": {
-			"name": "sender",
+		"senderId": {
+			"name": "senderId",
 			"type": "string",
 			"typeLabel": "string",
 			"required": false,
-			"id": "sender",
+			"id": "senderId",
 			"order": 0
 		},
-		"recipient": {
-			"name": "recipient",
+		"recipientId": {
+			"name": "recipientId",
 			"type": "string",
 			"typeLabel": "string",
 			"required": false,
-			"id": "recipient",
+			"id": "recipientId",
 			"order": 1
 		},
 		"timestamp": {
@@ -33,13 +33,21 @@
 			"id": "text",
 			"order": 3
 		},
-		"recipientRead": {
-			"name": "recipientRead",
+		"read": {
+			"name": "read",
 			"type": "boolean",
 			"typeLabel": "boolean",
 			"required": false,
-			"id": "recipientRead",
+			"id": "read",
 			"order": 4
+		},
+		"deleted": {
+			"name": "deleted",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "deleted",
+			"order": 5
 		}
 	}
 }

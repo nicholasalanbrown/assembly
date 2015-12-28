@@ -9,53 +9,77 @@
 			"id": "groupId",
 			"order": 0
 		},
-		"createdBy": {
-			"name": "createdBy",
+		"name": {
+			"name": "name",
 			"type": "string",
 			"typeLabel": "string",
 			"required": false,
-			"id": "createdBy",
+			"id": "name",
 			"order": 1
 		},
-		"eventName": {
-			"name": "eventName",
+		"description": {
+			"name": "description",
 			"type": "string",
 			"typeLabel": "string",
 			"required": false,
-			"id": "eventName",
+			"id": "description",
 			"order": 2
 		},
-		"eventDescription": {
-			"name": "eventDescription",
+		"startTime": {
+			"name": "startTime",
 			"type": "string",
 			"typeLabel": "string",
 			"required": false,
-			"id": "eventDescription",
+			"id": "startTime",
 			"order": 3
 		},
-		"eventDate": {
-			"name": "eventDate",
-			"type": "string",
-			"typeLabel": "string",
+		"duration": {
+			"name": "duration",
+			"type": "number",
+			"typeLabel": "number",
 			"required": false,
-			"id": "eventDate",
+			"id": "duration",
 			"order": 4
 		},
-		"eventLocation": {
-			"name": "eventLocation",
+		"location": {
+			"name": "location",
 			"type": "object",
 			"typeLabel": "object",
 			"required": false,
-			"id": "eventLocation",
+			"id": "location",
 			"order": 5
 		},
 		"going": {
 			"name": "going",
-			"type": "array",
-			"typeLabel": "array",
+			"type": "object",
+			"typeLabel": "object",
 			"required": false,
 			"id": "going",
 			"order": 6
+		},
+		"notGoing": {
+			"name": "notGoing",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "notGoing",
+			"order": 7
+		},
+		"organizerId": {
+			"name": "organizerId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "organizerId",
+			"order": 8
+		},
+		"deleted": {
+			"name": "deleted",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "deleted",
+			"order": 9
 		}
 	}
 }

@@ -1,0 +1,37 @@
+{
+	"type": "Collection",
+	"properties": {
+		"users": {
+			"name": "users",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "users",
+			"order": 0
+		},
+		"updatedAt": {
+			"name": "updatedAt",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "updatedAt",
+			"order": 1
+		},
+		"createdAt": {
+			"name": "createdAt",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "createdAt",
+			"order": 2
+		},
+		"deleted": {
+			"name": "deleted",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "deleted",
+			"order": 3
+		}
+	}
+}

@@ -1,0 +1,53 @@
+{
+	"type": "Collection",
+	"properties": {
+		"text": {
+			"name": "text",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "text",
+			"order": 0
+		},
+		"authorId": {
+			"name": "authorId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "authorId",
+			"order": 1
+		},
+		"replies": {
+			"name": "replies",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "replies",
+			"order": 2
+		},
+		"createdAt": {
+			"name": "createdAt",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "createdAt",
+			"order": 3
+		},
+		"likes": {
+			"name": "likes",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "likes",
+			"order": 4
+		},
+		"deleted": {
+			"name": "deleted",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "deleted",
+			"order": 5
+		}
+	}
+}
