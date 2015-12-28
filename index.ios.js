@@ -13,7 +13,8 @@ import UIBlocker from './application/components/shared/uiBlocker';
 import Modal from './application/components/shared/modal';
 import FBLogin from 'react-native-facebook-login';
 import faker from 'faker';
-import seed from './application/utilities/seed';
+import seedUsers from './application/utilities/seed_users';
+import seedGroups from './application/utilities/seed_groups';
 import _ from 'underscore';
 
 let {
@@ -118,24 +119,24 @@ class Assembly extends React.Component{
     let user = this.state.user;
     let api = "https://graph.facebook.com/me?fields=id,name,email&access_token="+user.token;
     fetch(api, {
-            method: "GET"
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.errors) {
-                this._toggleLoading(false);
-                console.log(data.errors);
-            }
-            else {
-                data.picture = "https://graph.facebook.com/"+user.userId+"/picture?type=large";
-                user.profile = data;
-                this.setState({user: user})
-                this._setUser(user);
-                this._updateUser(id);
-            }
-        })
-        .catch((error) => console.log(error))
-        .done();
+      method: "GET"
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.errors) {
+          this._toggleLoading(false);
+          console.log(data.errors);
+      }
+      else {
+          data.picture = "https://graph.facebook.com/"+user.userId+"/picture?type=large";
+          user.profile = data;
+          this.setState({user: user})
+          this._setUser(user);
+          this._updateUser(id);
+      }
+    })
+    .catch((error) => console.log(error))
+    .done();
   }
   _updateUser(id) {
     this._toggleLoading(true);
@@ -198,7 +199,7 @@ class Assembly extends React.Component{
           console.log("loginnotfound");
         this.setState({user: {}})
     });
-    // seed();
+    seedUsers();
 
   }
   render() {
