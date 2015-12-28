@@ -1,21 +1,13 @@
 {
 	"type": "UserCollection",
 	"properties": {
-		"userId": {
-			"name": "userId",
-			"type": "string",
-			"typeLabel": "string",
-			"required": false,
-			"id": "userId",
-			"order": 0
-		},
 		"profile": {
 			"name": "profile",
 			"type": "object",
 			"typeLabel": "object",
 			"required": false,
 			"id": "profile",
-			"order": 1
+			"order": 0
 		},
 		"token": {
 			"name": "token",
@@ -23,7 +15,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "token",
-			"order": 2
+			"order": 1
 		},
 		"tokenExpirationDate": {
 			"name": "tokenExpirationDate",
@@ -31,7 +23,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "tokenExpirationDate",
-			"order": 3
+			"order": 2
 		}
 	}
 }
