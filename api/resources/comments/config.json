@@ -1,44 +1,44 @@
 {
 	"type": "Collection",
 	"properties": {
-		"senderId": {
-			"name": "senderId",
-			"type": "string",
-			"typeLabel": "string",
-			"required": false,
-			"id": "senderId",
-			"order": 0
-		},
-		"recipientId": {
-			"name": "recipientId",
-			"type": "string",
-			"typeLabel": "string",
-			"required": false,
-			"id": "recipientId",
-			"order": 1
-		},
-		"timestamp": {
-			"name": "timestamp",
-			"type": "string",
-			"typeLabel": "string",
-			"required": false,
-			"id": "timestamp",
-			"order": 2
-		},
 		"text": {
 			"name": "text",
 			"type": "string",
 			"typeLabel": "string",
 			"required": false,
 			"id": "text",
+			"order": 0
+		},
+		"authorId": {
+			"name": "authorId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "authorId",
+			"order": 1
+		},
+		"replies": {
+			"name": "replies",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "replies",
+			"order": 2
+		},
+		"createdAt": {
+			"name": "createdAt",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "createdAt",
 			"order": 3
 		},
-		"read": {
-			"name": "read",
-			"type": "boolean",
-			"typeLabel": "boolean",
+		"likes": {
+			"name": "likes",
+			"type": "number",
+			"typeLabel": "number",
 			"required": false,
-			"id": "read",
+			"id": "likes",
 			"order": 4
 		},
 		"deleted": {

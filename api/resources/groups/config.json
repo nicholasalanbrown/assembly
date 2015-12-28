@@ -40,6 +40,22 @@
 			"required": false,
 			"id": "location",
 			"order": 4
+		},
+		"imageUrl": {
+			"name": "imageUrl",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "imageUrl",
+			"order": 5
+		},
+		"deleted": {
+			"name": "deleted",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "deleted",
+			"order": 6
 		}
 	}
 }

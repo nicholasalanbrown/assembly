@@ -72,6 +72,14 @@
 			"required": false,
 			"id": "organizerId",
 			"order": 8
+		},
+		"deleted": {
+			"name": "deleted",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "deleted",
+			"order": 9
 		}
 	}
 }

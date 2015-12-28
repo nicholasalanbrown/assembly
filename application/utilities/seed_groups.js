@@ -19,7 +19,8 @@ let seedGroups = (user) => {
       country: faker.fake('{{address.country}}'),
       zipcode: faker.fake('{{address.zipCode}}')
     },
-    createdAt: new Date()
+    createdAt: new Date(),
+    deleted: false
   }
   options.members[userId] = {
     confirmed: true,

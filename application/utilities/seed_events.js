@@ -13,8 +13,8 @@ let seedEvents = (group) => {
   let condition = _.sample(['Weekly', 'Monthly', 'Yearly']);
   let event = _.sample(['Meetup', 'Hack Night', 'Conference']);
   let options = {
-    name: `${condition} ${event}`,
     groupId: group.id,
+    name: `${condition} ${event}`,
     description: faker.fake('{{lorem.paragraph}}'),
     going: {},
     notGoing: {},
@@ -29,7 +29,8 @@ let seedEvents = (group) => {
       country: faker.fake('{{address.country}}'),
       zipcode: faker.fake('{{address.zipCode}}')
     },
-    createdAt: new Date()
+    createdAt: new Date(),
+    deleted: false
   }
   options.going[userId] = {
     joinedAt: new Date()

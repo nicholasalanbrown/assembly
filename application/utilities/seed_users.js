@@ -4,62 +4,62 @@ import Technologies from '../technologies';
 
 let seedUsers = () => {
   console.log('REMOVE DATA');
-  fetch('http://localhost:2403/groups?{"id": {"$ne": 10}}', {
-    method: "DELETE",
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    }
-  })
-  .then((response) => response.json())
-  .then((data) => {
-    if (data.errors) {
-        console.log(data.errors);
-    }
-    else {
-      console.log('REMOVING', data);
-    }
-  })
-  .catch((error) => console.log(error))
-  .done();
-
-  fetch('http://localhost:2403/users?{"id": {"$ne": 10}}', {
-    method: "DELETE",
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    }
-  })
-  .then((response) => response.json())
-  .then((data) => {
-    if (data.errors) {
-        console.log(data.errors);
-    }
-    else {
-      console.log('REMOVING', data);
-    }
-  })
-  .catch((error) => console.log(error))
-  .done();
-
-  fetch('http://localhost:2403/events?{"id": {"$ne": 10}}', {
-    method: "DELETE",
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    }
-  })
-  .then((response) => response.json())
-  .then((data) => {
-    if (data.errors) {
-        console.log(data.errors);
-    }
-    else {
-      console.log('REMOVING', data);
-    }
-  })
-  .catch((error) => console.log(error))
-  .done();
+  // fetch('http://localhost:2403/groups?{"id": {"$ne": 10}}', {
+  //   method: "DELETE",
+  //   headers: {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json',
+  //   }
+  // })
+  // .then((response) => response.json())
+  // .then((data) => {
+  //   if (data.errors) {
+  //       console.log(data.errors);
+  //   }
+  //   else {
+  //     console.log('REMOVING', data);
+  //   }
+  // })
+  // .catch((error) => console.log(error))
+  // .done();
+  //
+  // fetch('http://localhost:2403/users?{"id": {"$ne": 10}}', {
+  //   method: "DELETE",
+  //   headers: {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json',
+  //   }
+  // })
+  // .then((response) => response.json())
+  // .then((data) => {
+  //   if (data.errors) {
+  //       console.log(data.errors);
+  //   }
+  //   else {
+  //     console.log('REMOVING', data);
+  //   }
+  // })
+  // .catch((error) => console.log(error))
+  // .done();
+  //
+  // fetch('http://localhost:2403/events?{"id": {"$ne": 10}}', {
+  //   method: "DELETE",
+  //   headers: {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json',
+  //   }
+  // })
+  // .then((response) => response.json())
+  // .then((data) => {
+  //   if (data.errors) {
+  //       console.log(data.errors);
+  //   }
+  //   else {
+  //     console.log('REMOVING', data);
+  //   }
+  // })
+  // .catch((error) => console.log(error))
+  // .done();
 
   let options = {};
 
@@ -87,7 +87,8 @@ let seedUsers = () => {
             email: user.email,
             picture: user.picture.large,
             interests: interests
-          }
+          },
+          deleted: false
         }
 
         console.log('OPTIONS', options);
