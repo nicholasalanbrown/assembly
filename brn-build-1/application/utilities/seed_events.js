@@ -24,6 +24,8 @@ let seedEvents = (group) => {
     location: {
       lat: faker.fake('{{address.latitude}}'),
       lng: faker.fake('{{address.longitude}}'),
+      streetAddress: faker.fake('{{address.streetAddress}}'),
+      street: faker.fake('{{address.streetName}}'),
       city: faker.fake('{{address.city}}'),
       state: faker.fake('{{address.state}}'),
       country: faker.fake('{{address.country}}'),
