@@ -199,7 +199,7 @@ class Assembly extends React.Component{
           console.log("loginnotfound");
         this.setState({user: {}})
     });
-    seedUsers(); // seed database
+    // seedUsers(); // seed database
   }
   render() {
     StatusBarIOS.setStyle('light-content');
