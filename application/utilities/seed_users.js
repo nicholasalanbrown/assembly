@@ -23,24 +23,44 @@ let seedUsers = () => {
   .catch((error) => console.log(error))
   .done();
 
-  // fetch('http://localhost:2403/users?{"id": {"$ne": 10}}', {
-  //   method: "DELETE",
-  //   headers: {
-  //     'Accept': 'application/json',
-  //     'Content-Type': 'application/json',
-  //   }
-  // })
-  // .then((response) => response.json())
-  // .then((data) => {
-  //   if (data.errors) {
-  //       console.log(data.errors);
-  //   }
-  //   else {
-  //     console.log('REMOVING', data);
-  //   }
-  // })
-  // .catch((error) => console.log(error))
-  // .done();
+  fetch('http://localhost:2403/users?{"id": {"$ne": 10}}', {
+    method: "DELETE",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    if (data.errors) {
+        console.log(data.errors);
+    }
+    else {
+      console.log('REMOVING', data);
+    }
+  })
+  .catch((error) => console.log(error))
+  .done();
+
+  fetch('http://localhost:2403/events?{"id": {"$ne": 10}}', {
+    method: "DELETE",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    if (data.errors) {
+        console.log(data.errors);
+    }
+    else {
+      console.log('REMOVING', data);
+    }
+  })
+  .catch((error) => console.log(error))
+  .done();
+
   let options = {};
 
   _.each(_.range(100), function(){
@@ -58,6 +78,7 @@ let seedUsers = () => {
         options = {
           username: user.email,
           password: user.md5,
+          createdAt: new Date(),
           token: "",
           tokenExpirationDate: "",
           profile: {

@@ -1,16 +1,26 @@
 import faker from 'faker';
 import _ from 'underscore';
-import seedEvents from './seed_events';
 
-let seedGroups = (user) => {
+let seedEvents = (group) => {
   // console.log('GROUP USER', user);
-  let interest = _.sample(user.profile.interests)
-  let endWord = _.sample(['Meet', 'Lunch', 'Enthusiasts'])
-  let userId = user.profile.facebookId
+  let userId;
+  _.keys(group.members).forEach((key) => {
+    if (group.members[key].role == 'owner') {
+      userId = key;
+    }
+  })
+  let thisMonth = 1000*60*60*24*30
+  let condition = _.sample(['Weekly', 'Monthly', 'Yearly']);
+  let event = _.sample(['Meetup', 'Hack Night', 'Conference']);
   let options = {
-    name: `${interest} ${endWord}`,
+    name: `${condition} ${event}`,
+    groupId: group.id,
     description: faker.fake('{{lorem.paragraph}}'),
-    members: {},
+    going: {},
+    notGoing: {},
+    startTime: new Date(new Date().getTime() + Math.random()*thisMonth),
+    duration: 2,
+    organizerId: userId,
     location: {
       lat: faker.fake('{{address.latitude}}'),
       lng: faker.fake('{{address.longitude}}'),
@@ -21,14 +31,11 @@ let seedGroups = (user) => {
     },
     createdAt: new Date()
   }
-  options.members[userId] = {
-    confirmed: true,
-    deleted: false,
-    role: 'owner',
+  options.going[userId] = {
     joinedAt: new Date()
   }
   console.log('OPTIONS', options);
-  fetch("http://localhost:2403/groups", {
+  fetch("http://localhost:2403/events", {
     method: "POST",
     headers: {
       'Accept': 'application/json',
@@ -42,12 +49,12 @@ let seedGroups = (user) => {
       console.log(data.errors);
     }
     else {
-      console.log('GROUP', data);
-      seedEvents(data);
+      console.log('DATA', data);
     }
   })
   .catch((error) => console.log(error))
   .done()
+
 }
 
-module.exports = seedGroups;
+module.exports = seedEvents;

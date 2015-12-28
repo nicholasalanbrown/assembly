@@ -24,6 +24,14 @@
 			"required": false,
 			"id": "tokenExpirationDate",
 			"order": 2
+		},
+		"createdAt": {
+			"name": "createdAt",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "createdAt",
+			"order": 3
 		}
 	}
 }
