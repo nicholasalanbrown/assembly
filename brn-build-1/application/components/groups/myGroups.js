@@ -11,6 +11,7 @@ let {
   Text,
   TouchableOpacity,
   StyleSheet,
+  InteractionManager,
 } = React;
 
 class MyGroups extends React.Component{
@@ -19,56 +20,66 @@ class MyGroups extends React.Component{
     this._viewGroup = this._viewGroup.bind(this);
     this.state = {
       organizerData: [],
-      memberData: []
+      memberData: [],
+      transitionDone: false,
+      loadGroups: false,
     }
   }
   _getOrganizerGroups () {
+    // console.log('USER', this.props);
     fetch(Config.apiBaseUrl+"/groups?createdBy="+this.props.user.userId, {
-            method: "GET",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.errors) {
-                console.log(data.errors);
-            }
-            else {
-
-                this.setState({organizerData: data})
-            }
-        })
-        .catch((error) => console.log(error))
-        .done();
+      method: "GET",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      this.setState({groupsLoaded: true})
+      if (data.errors) {
+        console.log(data.errors);
+      }
+      else {
+        console.log('GROUPS', data);
+        this.setState({organizerData: data})
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+    .done();
   }
   _getMemberGroups () {
     let memberGroups = this.props.user.memberGroups;
     fetch(Config.apiBaseUrl+'/groups?{"id":{"$in":'+JSON.stringify(memberGroups)+'}}', {
-            method: "GET",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.errors) {
-                console.log(data.errors);
-            }
-            else {
-                this.setState({data: data})
-            }
-        })
-        .catch((error) => console.log(error))
-        .done();
+      method: "GET",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.errors) {
+        console.log(data.errors);
+      }
+      else {
+        this.setState({data: data})
+      }
+    })
+    .catch((error) => console.log(error))
+    .done();
   }
-  componentWillMount () {
-    this.props.loading(true);
-    this._getOrganizerGroups();
-    this._getMemberGroups();
-    this.props.loading(false);
+
+  componentDidMount(){
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({transitionDone: true});
+      this.props.loading(true);
+      this._getOrganizerGroups();
+      this._getMemberGroups();
+      this.props.loading(false);
+    });
   }
   _viewGroup(groupData) {
     this.props.navigator.push({
@@ -82,13 +93,25 @@ class MyGroups extends React.Component{
       }
     })
   }
+  _renderPlaceholderScene(){
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'stretch'}}>
+        <Text style={{textAlign: 'center',}}>Loading...</Text>
+      </View>
+    )
+  }
   render(){
       let _this = this;
+      let {transitionDone, groupsLoaded,} = this.state;
+      if (! transitionDone || ! this.state.groupsLoaded) {
+        return this._renderPlaceholderScene();
+      }
       let organizerGroups = this.state.organizerData.map(function(group) {
         return (
           <GroupCard groupData={group} viewGroup={_this._viewGroup} groupName={group.groupName} key={group.id} />
         );
       });
+
       return (
         <ScrollView style={styles.container}>
           <Text style={Globals.heading}>Groups You Organize</Text>
