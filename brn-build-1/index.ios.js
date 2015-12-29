@@ -6,6 +6,7 @@ import Home from './application/components/home';
 import Colors from './application/styles/colors';
 import Globals from './application/styles/globals';
 import Config from './config';
+import MyGroups from './application/components/groups/myGroups';
 import Loading from './application/components/shared/loading';
 import UIBlocker from './application/components/shared/uiBlocker';
 import Modal from './application/components/shared/modal';
@@ -113,28 +114,40 @@ class Assembly extends React.Component{
   }
 
   render(){
+    console.log('SCENES', Navigator.SceneConfigs)
     return (
       <View style={{flex: 1,}}>
       <Navigator
         style={styles.container}
         configureScene={() => {
-          return Navigator.SceneConfigs.FloatFromRight;
+          return Navigator.SceneConfigs.FadeAndroid;
         }}
         initialRoute={{name: this.state.initialRoute, index: 0}}
         renderScene={(route, navigator) => {
-          switch(route) {
+          console.log('ROUTE', route);
+          switch(route.name) {
             case 'welcome':
               return <Welcome navigator={navigator}/>
             break;
-            default:
+            case 'home':
               return (
-                      <Home
-                        uiBlocker={this._toggleBlocker.bind(this)}
-                        setUser={this._setUser.bind(this)}
-                        user={this.state.user}
-                        navigator={navigator}
-                      />
-                    )
+                <Home
+                  uiBlocker={this._toggleBlocker.bind(this)}
+                  setUser={this._setUser.bind(this)}
+                  user={this.state.user}
+                  loading={this._toggleLoading.bind(this)}
+                  navigator={navigator}
+                />
+              )
+            break;
+            case 'My Groups' :
+              return (
+                <MyGroups
+                  loading={route.loading}
+                  uiBlocker={route.uiBlocker}
+                  user={route.user}
+                />
+              )
             break;
           }
         }}/>

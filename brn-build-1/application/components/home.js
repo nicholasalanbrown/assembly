@@ -1,7 +1,7 @@
 import React from 'react-native';
 import Globals from '../styles/globals';
 import createGroup from './groups/createGroup';
-import myGroups from './groups/myGroups';
+import MyGroups from './groups/myGroups';
 import UserProfile from './users/userProfile';
 import Messages from './users/messages';
 import myProfile from './myProfile';
@@ -32,12 +32,12 @@ class Home extends React.Component{
     this._handlePress = this._handlePress.bind(this);
     this.state = {
       mapRegion: {
-        latitude:   40.688816,
-        longitude: -73.988410,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01
+        latitude        : 40.688816,
+        longitude       : -73.988410,
+        latitudeDelta   : 0.01,
+        longitudeDelta  : 0.01
       },
-      transitionDone: false,
+      transitionDone    : false,
     }
   }
   componentDidMount(){
@@ -67,79 +67,76 @@ class Home extends React.Component{
     if (! transitionDone) {
       return this._renderPlaceholderView();
     }
-      return (
-        <ScrollView style={styles.container}>
-          <MapView
-            style={Globals.map}
-            region={this.state.mapRegion}
-            annotations={[{latitude: this.state.mapRegion.latitude, longitude: this.state.mapRegion.longitude}]}
-          />
-            <TouchableOpacity onPress={() =>{
-                this.props.navigator.push({
-                  title: 'New Event',
-                  component: createEvent,
-                  passProps: {
-                    loading: this.props.loading,
-                    uiBlocker: this.props.uiBlocker,
-                    user: this.props.user
-                  }
-                })
-              }
+    return (
+      <ScrollView style={styles.container}>
+        <MapView
+          style={Globals.map}
+          region={this.state.mapRegion}
+          annotations={[{latitude: this.state.mapRegion.latitude, longitude: this.state.mapRegion.longitude}]}
+        />
+          <TouchableOpacity onPress={() =>{
+              this.props.navigator.push({
+                title: 'New Event',
+                component: createEvent,
+                passProps: {
+                  loading: this.props.loading,
+                  uiBlocker: this.props.uiBlocker,
+                  user: this.props.user
+                }
+              })
             }
-            style={Globals.button}>
-              <Text style={Globals.buttonText}>New Event</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() =>{
-                this.props.navigator.push({
-                  title: 'New Event',
-                  component: createGroup,
-                  passProps: {
-                    loading: this.props.loading,
-                    uiBlocker: this.props.uiBlocker,
-                    user: this.props.user
-                  }
-                })
-              }
-            }
-            style={Globals.button}>
-              <Text style={Globals.buttonText}>New Group</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() =>{
-                this.props.navigator.push({
-                  title: 'My Groups',
-                  component: myGroups,
-                  passProps: {
-                    loading: this.props.loading,
-                    uiBlocker: this.props.uiBlocker,
-                    user: this.props.user
-                  }
-                })
-              }
-            }
-            style={Globals.button}>
-              <Text style={Globals.buttonText}>My Groups</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() =>{
-                this.props.navigator.push({
-                  title: 'Messages',
-                  component: Messages,
-                  passProps: {
-                    loading: this.props.loading,
-                    uiBlocker: this.props.uiBlocker,
-                    user: this.props.user
-                  }
-                })
-              }
-            }
-            style={Globals.button}>
-              <Text style={Globals.buttonText}>Messages</Text>
-            </TouchableOpacity>
-          <TouchableOpacity onPress={this._handlePress}>
-            <Text>Logout</Text>
+          }
+          style={Globals.button}>
+            <Text style={Globals.buttonText}>New Event</Text>
           </TouchableOpacity>
-        </ScrollView>
-      )
-    }
+          <TouchableOpacity onPress={() =>{
+              this.props.navigator.push({
+                title: 'New Event',
+                component: createGroup,
+                passProps: {
+                  loading: this.props.loading,
+                  uiBlocker: this.props.uiBlocker,
+                  user: this.props.user
+                }
+              })
+            }
+          }
+          style={Globals.button}>
+            <Text style={Globals.buttonText}>New Group</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>{
+              this.props.navigator.push({
+                name: 'My Groups',
+                loading: this.props.loading,
+                uiBlocker: this.props.uiBlocker,
+                user: this.props.user
+              })
+            }}
+            style={Globals.button}>
+            <Text style={Globals.buttonText}>My Groups</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() =>{
+              this.props.navigator.push({
+                title: 'Messages',
+                component: Messages,
+                passProps: {
+                  loading: this.props.loading,
+                  uiBlocker: this.props.uiBlocker,
+                  user: this.props.user
+                }
+              })
+            }
+          }
+          style={Globals.button}>
+            <Text style={Globals.buttonText}>Messages</Text>
+          </TouchableOpacity>
+        <TouchableOpacity onPress={this._handlePress}>
+          <Text>Logout</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    )
+  }
 };
 
 const styles = StyleSheet.create({
