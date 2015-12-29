@@ -18,6 +18,7 @@ let {
   TouchableOpacity,
   Dimensions,
   StyleSheet,
+  InteractionManager,
 } = React;
 
 let {
@@ -36,7 +37,13 @@ class Home extends React.Component{
         latitudeDelta: 0.01,
         longitudeDelta: 0.01
       },
+      transitionDone: false,
     }
+  }
+  componentDidMount(){
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({transitionDone: true})
+    })
   }
   _handlePress () {
     FBLoginManager.logout(function(error, data){
@@ -47,8 +54,19 @@ class Home extends React.Component{
       }
     })
   }
+  _renderPlaceholderView(){
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    )
+  }
   render(){
     let _this = this;
+    let {transitionDone,} = this.state;
+    if (! transitionDone) {
+      return this._renderPlaceholderView();
+    }
       return (
         <ScrollView style={styles.container}>
           <MapView
