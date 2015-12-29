@@ -41,6 +41,7 @@ class MyGroups extends React.Component{
         console.log(data.errors);
       }
       else {
+        console.log('GROUPS', data);
         this.setState({organizerData: data})
       }
     })
@@ -52,23 +53,23 @@ class MyGroups extends React.Component{
   _getMemberGroups () {
     let memberGroups = this.props.user.memberGroups;
     fetch(Config.apiBaseUrl+'/groups?{"id":{"$in":'+JSON.stringify(memberGroups)+'}}', {
-            method: "GET",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.errors) {
-                console.log(data.errors);
-            }
-            else {
-                this.setState({data: data})
-            }
-        })
-        .catch((error) => console.log(error))
-        .done();
+      method: "GET",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.errors) {
+        console.log(data.errors);
+      }
+      else {
+        this.setState({data: data})
+      }
+    })
+    .catch((error) => console.log(error))
+    .done();
   }
 
   componentDidMount(){
@@ -94,8 +95,8 @@ class MyGroups extends React.Component{
   }
   _renderPlaceholderScene(){
     return (
-      <View>
-        <Text>Loading...</Text>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'stretch'}}>
+        <Text style={{textAlign: 'center',}}>Loading...</Text>
       </View>
     )
   }
